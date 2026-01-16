@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <!-- Кодировка документа -->
+  <meta charset="utf-8">
+
+  <!-- Подключение стилей -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Заголовок страницы в браузере -->
+  <title>Е-ПРОМТ — конструктор промптов</title>
+</head>
+<body>
+
+<!-- Основной заголовок инструмента -->
+<h1>Конструктор промтов для NanoBanana</h1>
+
+<!-- Форма, объединяющая все селекты для сборки промта -->
+<form id="promptForm">
+
+  <!-- БЛОК: Персонаж -->
+  <!-- Определяет, будет ли в промте зафиксирован конкретный персонаж -->
+  <fieldset>
+    <legend>Персонаж (необязательно)</legend>
+    <select name="character">
+      <!-- Пустое значение = персонаж не добавляется в промт -->
+      <option value="">Без персонажа</option>
+      <!-- Явно заданный персонаж -->
+      <option value="@rita — Rita Chernova AI model">@rita</option>
+    </select>
+  </fieldset>
+
+  <br>
+
+  <!-- БЛОК: Эмоция -->
+  <!-- Отвечает за эмоциональное состояние персонажа -->
+  <fieldset>
+    <legend>Эмоция</legend>
+    <select name="emotion">
+      <!-- random = выбор случайного варианта из randomMap.emotion -->
+      <option value="random">Случайно</option>
+      <!-- Фиксированные эмоциональные состояния -->
+      <option value="neutral confident expression">Нейтральная уверенность</option>
+      <option value="relaxed seductive calm">Расслабленная соблазнительность</option>
+      <option value="playful bold attitude">Игривая дерзость</option>
+      <option value="tired dreamy look">Томная усталость</option>
+    </select>
+  </fieldset>
+
+  <br>
+
+  <!-- БЛОК: Стиль -->
+  <!-- Определяет художественный и визуальный стиль изображения -->
+  <fieldset>
+    <legend>Стиль</legend>
+    <select name="style">
+      <option value="random">Случайно</option>
+      <option value="natural photo style, realistic lighting">Фото (natural)</option>
+      <option value="editorial fashion photography">Редакционный</option>
+      <option value="high-end fashion photography">Fashion photo</option>
+      <option value="cinematic film look">Film landscapes</option>
+      <option value="vibrant cinematic colors, film look">Vibrant film</option>
+      <option value="cross-processed film tones">Cross-processed</option>
+      <option value="experimental weird film aesthetics">Weird film</option>
+      <option value="detailed digital illustration style">Illustration</option>
+      <option value="stylized 3D character render look">Character 3D</option>
+      <option value="soft dreamy anime style">Dreamy anime</option>
+    </select>
+  </fieldset>
+
+  <br>
+
+  <!-- БЛОК: Сцена -->
+  <!-- Определяет окружение и локацию -->
+  <fieldset>
+    <legend>Сцена</legend>
+    <select name="scene">
+      <option value="random">Случайно</option>
+      <option value="urban winter city, snowy streets">Зимний город</option>
+      <option value="minimal studio environment">Студия</option>
+      <option value="modern cafe interior">Кафе</option>
+      <option value="night city lights, cinematic atmosphere">Ночной город</option>
+    </select>
+  </fieldset>
+
+  <br>
+
+  <!-- БЛОК: Камера -->
+  <!-- Определяет оптику, ракурс и характер съёмки -->
+  <fieldset>
+    <legend>Камера</legend>
+    <select name="camera">
+      <option value="random">Случайно</option>
+      <option value="35mm natural perspective">Натуральная</option>
+      <option value="50mm portrait lens">Портрет</option>
+      <option value="85mm cinematic compression">Кино</option>
+      <option value="24mm wide angle">Широкая</option>
+      <!-- Детализированная «смартфон-эстетика» без буквального телефона в кадре -->
+      <option value="smartphone photo aesthetic, 26mm full-frame equivalent, f/1.8, computational HDR, slight edge sharpening, natural noise reduction, handheld framing, on-axis perspective, quick snapshot feel, no visible device in frame">
+        Телефон
+      </option>
+    </select>
+  </fieldset>
+
+  <br>
+
+  <!-- БЛОК: Формат изображения -->
+  <!-- Управляет соотношением сторон (aspect ratio) -->
+  <fieldset>
+    <legend>Формат</legend>
+    <select name="aspect">
+      <option value="auto">auto</option>
+      <option value="--ar 1:1">1:1</option>
+      <option value="--ar 21:9">21:9</option>
+      <option value="--ar 16:9">16:9</option>
+      <option value="--ar 9:16">9:16</option>
+      <option value="--ar 3:4">3:4</option>
+      <option value="--ar 4:5">4:5</option>
+      <option value="--ar 5:4">5:4</option>
+      <option value="--ar 4:3">4:3</option>
+      <option value="--ar 3:2">3:2</option>
+      <option value="--ar 2:3">2:3</option>
+    </select>
+  </fieldset>
+
+</form>
+
+<hr>
+
+<!-- Текстовое описание итогового изображения (на русском языке) -->
+<h3>Описание сцены</h3>
+<p id="description"></p>
+
+<br>
+
+<!-- Итоговый собранный промт (на английском) -->
+<h3>Промт</h3>
+<textarea id="result" rows="4" cols="120" readonly></textarea>
+
+<br><br>
+
+<!-- Кнопка пересборки промта (с учётом random-параметров) -->
+<button type="button" id="refreshBtn">Обновить промт</button>
+
+<!-- Кнопка копирования промта и добавления его в историю -->
+<button type="button" id="copyBtn">Скопировать промт</button>
+
+<hr>
+
+<!-- История ранее скопированных промтов -->
+<h3>История промтов</h3>
+<div id="promptHistory"></div>
+
+<script>
+/* 
+  randomMap:
+  Центральное хранилище всех вариантов.
+  Используется для:
+  - random-выбора
+  - сопоставления EN ↔ RU
+*/
+const randomMap = {
+  emotion: [
+    { en: "neutral confident expression", ru: "нейтральная уверенность" },
+    { en: "relaxed seductive calm", ru: "расслабленная соблазнительность" },
+    { en: "playful bold attitude", ru: "игривая дерзость" },
+    { en: "tired dreamy look", ru: "томная усталость" },
+    { en: "soft sincere smile", ru: "мягкая искренняя улыбка" },
+    { en: "focused calm seriousness", ru: "спокойная сосредоточенность" },
+    { en: "light playful flirt", ru: "лёгкий флирт" },
+    { en: "quiet inner confidence", ru: "внутренняя уверенность" },
+    { en: "melancholic calm mood", ru: "спокойная меланхолия" },
+    { en: "subtle mysterious look", ru: "лёгкая загадочность" },
+    { en: "casual everyday expression", ru: "повседневная естественность" },
+    { en: "soft emotional vulnerability", ru: "мягкая эмоциональность" },
+    { en: "calm observational mood", ru: "спокойное наблюдение" },
+    { en: "slightly ironic expression", ru: "лёгкая ирония" }
+  ],
+
+  style: [
+    { en: "natural photo style, realistic lighting", ru: "натуральная фотография" },
+    { en: "editorial fashion photography", ru: "редакционный fashion-стиль" },
+    { en: "high-end fashion photography", ru: "премиальная fashion-съёмка" },
+    { en: "cinematic film look", ru: "кинематографичный плёночный стиль" },
+    { en: "vibrant cinematic colors, film look", ru: "яркий кинематографичный цвет" },
+    { en: "cross-processed film tones", ru: "кросс-процессинг плёнки" },
+    { en: "experimental weird film aesthetics", ru: "экспериментальный арт-стиль" },
+    { en: "detailed digital illustration style", ru: "детализированная цифровая иллюстрация" },
+    { en: "stylized 3D character render look", ru: "стилизованный 3D-персонаж" },
+    { en: "soft dreamy anime style", ru: "мягкий аниме-стиль" }
+  ],
+
+  scene: [
+    { en: "urban winter city, snowy streets", ru: "зимний городской пейзаж" },
+    { en: "modern cafe interior", ru: "современное кафе" },
+    { en: "minimal studio environment", ru: "минималистичная студия" },
+    { en: "night city lights, cinematic atmosphere", ru: "ночной город с огнями" },
+    { en: "quiet residential street", ru: "тихая городская улица" },
+    { en: "modern apartment interior", ru: "современная квартира" },
+    { en: "window light interior scene", ru: "интерьер с оконным светом" },
+    { en: "urban balcony view", ru: "городской балкон" },
+    { en: "city cafe terrace", ru: "кафе на улице" },
+    { en: "public transport interior", ru: "в салоне общественного транспорта" },
+    { en: "minimal bedroom interior", ru: "минималистичная спальня" },
+    { en: "office interior with daylight", ru: "офис при дневном свете" },
+    { en: "urban crosswalk scene", ru: "городской пешеходный переход" },
+    { en: "modern shopping mall interior", ru: "современный торговый центр" },
+    { en: "city park pathway", ru: "городской парк" },
+    { en: "evening street after snowfall", ru: "вечерняя улица после снегопада" }
+  ],
+
+  camera: [
+    { en: "35mm natural perspective", ru: "натуральная перспектива (35mm)" },
+    { en: "50mm portrait lens", ru: "портретная оптика (50mm)" },
+    { en: "85mm cinematic compression", ru: "кинематографичная компрессия (85mm)" },
+    { en: "24mm wide angle", ru: "широкоугольный объектив" },
+    {
+      en: "smartphone photo aesthetic, 26mm full-frame equivalent, f/1.8, computational HDR, slight edge sharpening, natural noise reduction, handheld framing, on-axis perspective, quick snapshot feel, no visible device in frame",
+      ru: "эстетика камеры смартфона (снимок на ходу)"
+    }
+  ]
+};
+
+/*
+  pick():
+  Универсальная функция выбора значения.
+  - Если выбран random → берётся случайный элемент
+  - Если выбрано конкретное значение → ищется точное совпадение
+*/
+function pick(value, key) {
+  const list = randomMap[key];
+
+  if (!list) {
+    alert(`Ошибка конфигурации: нет набора для "${key}"`);
+    throw new Error(`Missing randomMap for ${key}`);
+  }
+
+  if (value === "random") {
+    return list[Math.floor(Math.random() * list.length)];
+  }
+
+  const found = list.find(i => i.en === value);
+
+  if (!found) {
+    alert(
+      `Ошибка: выбранное значение не найдено.\n\n` +
+      `Раздел: ${key}\n` +
+      `Значение: "${value}"`
+    );
+    throw new Error(`Value "${value}" not found in ${key}`);
+  }
+
+  return found;
+}
+
+/* История скопированных промтов */
+const promptHistory = [];
+const MAX_HISTORY = 20;
+
+/*
+  addToHistory():
+  Добавляет промт в историю,
+  если такого промта ещё нет
+*/
+function addToHistory(promptText, descriptionText) {
+  const exists = promptHistory.some(item => item.prompt === promptText);
+  if (exists) return;
+
+  const now = new Date();
+
+  promptHistory.unshift({
+    date: now.toLocaleDateString("ru-RU"),
+    time: now.toLocaleTimeString("ru-RU"),
+    description: descriptionText,
+    prompt: promptText
+  });
+
+  if (promptHistory.length > MAX_HISTORY) {
+    promptHistory.pop();
+  }
+
+  renderHistory();
+}
+
+/*
+  renderHistory():
+  Перерисовывает список истории в DOM
+*/
+function renderHistory() {
+  const container = document.getElementById("promptHistory");
+  container.innerHTML = "";
+
+  promptHistory.forEach((item, index) => {
+    const block = document.createElement("div");
+    block.style.marginBottom = "16px";
+
+    block.innerHTML = `
+      <strong>${item.date} / ${item.time}</strong><br>
+      <em>${item.description}</em><br>
+      <textarea rows="2" cols="100" readonly>${item.prompt}</textarea><br>
+      <button type="button" onclick="copyFromHistory(${index})">
+        Повторно скопировать
+      </button>
+    `;
+
+    container.appendChild(block);
+  });
+}
+
+/*
+  copyFromHistory():
+  Копирует промт из истории повторно
+*/
+function copyFromHistory(index) {
+  navigator.clipboard.writeText(promptHistory[index].prompt);
+}
+
+/*
+  buildPrompt():
+  Главная функция сборки промта и описания
+*/
+function buildPrompt() {
+  const d = new FormData(document.getElementById("promptForm"));
+
+  const character = d.get("character");
+  const emotion = pick(d.get("emotion"), "emotion");
+  const style = pick(d.get("style"), "style");
+  const scene = pick(d.get("scene"), "scene");
+  const camera = pick(d.get("camera"), "camera");
+  const aspect = d.get("aspect");
+
+  const parts = [];
+  if (character) parts.push(character);
+
+  const nonPhotoStyles = [
+    "detailed digital illustration style",
+    "stylized 3D character render look",
+    "soft dreamy anime style"
+  ];
+
+  const quality = nonPhotoStyles.includes(style.en)
+    ? "high detail, clean shapes, consistent style, sharp focus"
+    : "photorealistic, crisp realism, minimal post-processing";
+
+  parts.push(
+    emotion.en,
+    style.en,
+    scene.en,
+    camera.en,
+    quality
+  );
+
+  parts.push(
+    "no phone, no camera, no visible device, no smartphone in hand, no screen reflection, no photographing gesture"
+  );
+
+  if (aspect !== "auto") parts.push(aspect);
+
+  document.getElementById("result").value = parts.join(", ");
+
+  const isPhoto = !nonPhotoStyles.includes(style.en);
+
+  document.getElementById("description").innerText =
+    `${isPhoto ? "Фотореалистичное изображение" : "Стилизованное изображение"}. ` +
+    `Эмоция: ${emotion.ru}. ` +
+    `Стиль: ${style.ru}. ` +
+    `Сцена: ${scene.ru}. ` +
+    `Камера: ${camera.ru}.`;
+}
+
+/* Обработчики кнопок */
+document.getElementById("refreshBtn").onclick = buildPrompt;
+
+document.getElementById("copyBtn").onclick = () => {
+  const promptText = document.getElementById("result").value;
+  const descriptionText = document.getElementById("description").innerText;
+
+  navigator.clipboard.writeText(promptText);
+  addToHistory(promptText, descriptionText);
+};
+
+/* Первичная генерация при загрузке страницы */
+buildPrompt();
+</script>
+
+</body>
+</html>
