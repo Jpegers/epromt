@@ -1,0 +1,88 @@
+{
+  "order": ["style", "camera", "lighting", "quality"],
+  "groups": [
+    {
+      "key": "style",
+      "labelRu": "Стиль изображения",
+      "default": "photo",
+      "options": [
+        {
+          "key": "photo",
+          "ru": "Фотореализм",
+          "en": "photorealistic, ultra detailed, natural lighting"
+        },
+        {
+          "key": "cinema",
+          "ru": "Кинематографичный",
+          "en": "cinematic lighting, dramatic atmosphere, shallow depth of field"
+        },
+        {
+          "key": "illustration",
+          "ru": "Иллюстрация",
+          "en": "digital illustration, clean lines, stylized colors"
+        }
+      ]
+    },
+    {
+      "key": "camera",
+      "labelRu": "Камера и ракурс",
+      "default": "portrait",
+      "options": [
+        {
+          "key": "portrait",
+          "ru": "Портрет",
+          "en": "portrait shot, 85mm lens"
+        },
+        {
+          "key": "wide",
+          "ru": "Широкий план",
+          "en": "wide angle shot, environmental context"
+        },
+        {
+          "key": "close",
+          "ru": "Крупный план",
+          "en": "close-up shot, high detail"
+        }
+      ]
+    },
+    {
+      "key": "lighting",
+      "labelRu": "Освещение",
+      "default": "soft",
+      "options": [
+        {
+          "key": "soft",
+          "ru": "Мягкий свет",
+          "en": "soft natural light, smooth shadows"
+        },
+        {
+          "key": "studio",
+          "ru": "Студийный свет",
+          "en": "studio lighting, controlled highlights"
+        },
+        {
+          "key": "back",
+          "ru": "Контровой свет",
+          "en": "backlight, rim light"
+        }
+      ]
+    },
+    {
+      "key": "quality",
+      "labelRu": "Качество",
+      "default": "high",
+      "options": [
+        {
+          "key": "high",
+          "ru": "Высокое",
+          "en": "high resolution, sharp focus"
+        },
+        {
+          "key": "ultra",
+          "ru": "Максимальное",
+          "en": "ultra high resolution, professional quality"
+        }
+      ]
+    }
+  ]
+}

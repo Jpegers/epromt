@@ -1,0 +1,88 @@
+{
+  "order": ["scene", "camera", "motion", "quality"],
+  "groups": [
+    {
+      "key": "scene",
+      "labelRu": "Тип сцены",
+      "default": "cinematic",
+      "options": [
+        {
+          "key": "cinematic",
+          "ru": "Кинематографичная сцена",
+          "en": "cinematic scene, dramatic lighting, film look"
+        },
+        {
+          "key": "lifestyle",
+          "ru": "Лайфстайл",
+          "en": "lifestyle scene, natural environment, realistic mood"
+        },
+        {
+          "key": "abstract",
+          "ru": "Абстрактная",
+          "en": "abstract scene, artistic composition"
+        }
+      ]
+    },
+    {
+      "key": "camera",
+      "labelRu": "Работа камеры",
+      "default": "static",
+      "options": [
+        {
+          "key": "static",
+          "ru": "Статичная камера",
+          "en": "static camera"
+        },
+        {
+          "key": "pan",
+          "ru": "Плавный пан",
+          "en": "slow camera pan"
+        },
+        {
+          "key": "tracking",
+          "ru": "Следование за объектом",
+          "en": "tracking shot following the subject"
+        }
+      ]
+    },
+    {
+      "key": "motion",
+      "labelRu": "Движение в кадре",
+      "default": "subtle",
+      "options": [
+        {
+          "key": "subtle",
+          "ru": "Лёгкое движение",
+          "en": "subtle motion, smooth animation"
+        },
+        {
+          "key": "dynamic",
+          "ru": "Динамичное движение",
+          "en": "dynamic motion, energetic movement"
+        },
+        {
+          "key": "slowmo",
+          "ru": "Замедленное движение",
+          "en": "slow motion, cinematic timing"
+        }
+      ]
+    },
+    {
+      "key": "quality",
+      "labelRu": "Качество видео",
+      "default": "high",
+      "options": [
+        {
+          "key": "high",
+          "ru": "Высокое",
+          "en": "high quality video, clean details"
+        },
+        {
+          "key": "ultra",
+          "ru": "Максимальное",
+          "en": "ultra high quality video, professional production"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "id": "portrait_photo",
+      "titleRu": "Портретная фотография",
+      "descriptionRu": "Классический портрет с акцентом на лицо, свет и детализацию.",
+      "preview": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+      "promptEn": "photorealistic portrait, soft natural light, 85mm lens, high detail, professional photography"
+    },
+    {
+      "id": "cinematic_photo",
+      "titleRu": "Кинематографичный кадр",
+      "descriptionRu": "Художественный кадр с драматическим светом и атмосферой кино.",
+      "preview": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
+      "promptEn": "cinematic shot, dramatic lighting, shallow depth of field, film look, high quality"
+    },
+    {
+      "id": "lifestyle_photo",
+      "titleRu": "Лайфстайл сцена",
+      "descriptionRu": "Живой повседневный кадр в естественной обстановке.",
+      "preview": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      "promptEn": "lifestyle photography, natural environment, candid moment, realistic lighting"
+    }
+  ]
+}

@@ -1,130 +1,21 @@
 <!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="light dark" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+               initial-scale=1,
+               maximum-scale=1,
+               user-scalable=no,
+               viewport-fit=cover"
+    />
+    <title>ePrompt</title>
+  </head>
+  <body>
+    <div id="app"></div>
 
-  <title>Е‑ПРОМТ — конструктор промптов</title>
-
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <main class="app" role="main">
-    <header class="app__header">
-      <div class="app__brand">
-        <div class="app__title">Е‑ПРОМТ</div>
-        <div class="app__subtitle">Конструктор промптов для NanoBanana</div>
-      </div>
-      <div class="app__status" id="tgStatus" aria-live="polite"></div>
-    </header>
-
-    <section class="card" aria-label="Параметры">
-      <form id="promptForm" class="form">
-        <fieldset class="fieldset">
-          <legend>Персонаж (необязательно)</legend>
-          <select name="character" aria-label="Персонаж">
-            <option value="">Без персонажа</option>
-            <option value="@rita — Rita Chernova AI model">@rita</option>
-          </select>
-        </fieldset>
-
-        <fieldset class="fieldset">
-          <legend>Эмоция</legend>
-          <select name="emotion" aria-label="Эмоция">
-            <option value="random">Случайно</option>
-            <option value="neutral confident expression">Нейтральная уверенность</option>
-            <option value="relaxed seductive calm">Расслабленная соблазнительность</option>
-            <option value="playful bold attitude">Игривая дерзость</option>
-            <option value="tired dreamy look">Томная усталость</option>
-          </select>
-        </fieldset>
-
-        <fieldset class="fieldset">
-          <legend>Стиль</legend>
-          <select name="style" aria-label="Стиль">
-            <option value="random">Случайно</option>
-            <option value="natural photo style, realistic lighting">Фото (natural)</option>
-            <option value="editorial fashion photography">Редакционный</option>
-            <option value="high-end fashion photography">Fashion photo</option>
-            <option value="cinematic film look">Film landscapes</option>
-            <option value="vibrant cinematic colors, film look">Vibrant film</option>
-            <option value="cross-processed film tones">Cross-processed</option>
-            <option value="experimental weird film aesthetics">Weird film</option>
-            <option value="detailed digital illustration style">Illustration</option>
-            <option value="stylized 3D character render look">Character 3D</option>
-            <option value="soft dreamy anime style">Dreamy anime</option>
-          </select>
-        </fieldset>
-
-        <fieldset class="fieldset">
-          <legend>Сцена</legend>
-          <select name="scene" aria-label="Сцена">
-            <option value="random">Случайно</option>
-            <option value="urban winter city, snowy streets">Зимний город</option>
-            <option value="minimal studio environment">Студия</option>
-            <option value="modern cafe interior">Кафе</option>
-            <option value="night city lights, cinematic atmosphere">Ночной город</option>
-          </select>
-        </fieldset>
-
-        <fieldset class="fieldset">
-          <legend>Камера</legend>
-          <select name="camera" aria-label="Камера">
-            <option value="random">Случайно</option>
-            <option value="35mm natural perspective">Натуральная</option>
-            <option value="50mm portrait lens">Портрет</option>
-            <option value="85mm cinematic compression">Кино</option>
-            <option value="24mm wide angle">Широкая</option>
-            <option value="smartphone photo aesthetic, 26mm full-frame equivalent, f/1.8, computational HDR, slight edge sharpening, natural noise reduction, handheld framing, on-axis perspective, quick snapshot feel, no visible device in frame">Телефон</option>
-          </select>
-        </fieldset>
-
-        <fieldset class="fieldset">
-          <legend>Формат</legend>
-          <select name="aspect" aria-label="Формат">
-            <option value="auto">auto</option>
-            <option value="--ar 1:1">1:1</option>
-            <option value="--ar 21:9">21:9</option>
-            <option value="--ar 16:9">16:9</option>
-            <option value="--ar 9:16">9:16</option>
-            <option value="--ar 3:4">3:4</option>
-            <option value="--ar 4:5">4:5</option>
-            <option value="--ar 5:4">5:4</option>
-            <option value="--ar 4:3">4:3</option>
-            <option value="--ar 3:2">3:2</option>
-            <option value="--ar 2:3">2:3</option>
-          </select>
-        </fieldset>
-      </form>
-
-      <div class="actions" role="group" aria-label="Действия">
-        <button type="button" class="btn" id="refreshBtn">Обновить</button>
-        <button type="button" class="btn btn--primary" id="copyBtn">Скопировать</button>
-      </div>
-    </section>
-
-    <section class="card" aria-label="Результат">
-      <div class="card__title">Описание сцены</div>
-      <p id="description" class="desc"></p>
-
-      <div class="card__title">Промт</div>
-      <textarea id="result" rows="4" readonly></textarea>
-
-      <div class="hint">Совет: в Telegram Mini App копирование может требовать подтверждения — статус появится снизу.</div>
-    </section>
-
-    <section class="card" aria-label="История">
-      <div class="card__header">
-        <div class="card__title">История</div>
-        <button type="button" class="btn btn--ghost" id="clearHistoryBtn">Очистить</button>
-      </div>
-      <div id="promptHistory" class="history"></div>
-    </section>
-  </main>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script src="app.js" defer></script>
-</body>
+    <!-- Entry point for Vite -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
