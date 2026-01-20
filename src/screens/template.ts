@@ -1,11 +1,9 @@
 import { renderHeader } from "../blocks/header";
-import { addHistory } from "../blocks/historyStore";
+import { renderTemplateDetail } from "../blocks/templateDetail";
+import { createCopyButton } from "../blocks/copyButton";
 
 import photoTemplates from "../data/templates.photo.json";
 import videoTemplates from "../data/templates.video.json";
-
-import { showAdModal } from "../blocks/adModal";
-
 
 type TemplateItem = {
   id: string;
@@ -46,52 +44,22 @@ export function renderTemplate(
   const main = document.createElement("main");
   main.className = "screen template";
 
-  // --- Preview ---
-  const preview = document.createElement("section");
-  preview.className = "card preview";
-  preview.style.backgroundImage = `url(${template.preview})`;
+  // --- Template detail block ---
+  const detail = renderTemplateDetail({
+    title: template.titleRu,
+    description: template.descriptionRu,
+    preview: template.preview,
+  });
 
-  // --- Info ---
-  const info = document.createElement("section");
-  info.className = "template-info";
-
-  const title = document.createElement("h3");
-  title.textContent = template.titleRu;
-
-  const description = document.createElement("p");
-  description.textContent = template.descriptionRu;
-
-  info.appendChild(title);
-  info.appendChild(description);
-
-  // --- Copy button ---
-  const copyBtn = document.createElement("button");
-  copyBtn.className = "btn green full";
-  copyBtn.textContent = "Скопировать";
-
-  copyBtn.addEventListener("click", async () => {
-    await navigator.clipboard.writeText(template.promptEn);
-
-    addHistory({
-      source: "template",
-      ru: template.titleRu,
-      en: template.promptEn,
-      date: Date.now(),
-    });
-
-    showAdModal(); // ← реклама после копирования
-
-    copyBtn.textContent = "Скопировано";
-    setTimeout(() => {
-      copyBtn.textContent = "Скопировать";
-    }, 1500);
+  // --- Copy button block ---
+  const copyButton = createCopyButton({
+    getEn: () => template.promptEn,
+    getRu: () => template.titleRu,
+    source: "template",
   });
 
   // ===== Append =====
-  main.appendChild(preview);
-  main.appendChild(info);
-  main.appendChild(copyBtn);
-
+  main.appendChild(detail);
+  main.appendChild(copyButton);
   root.appendChild(main);
-
 }

@@ -211,7 +211,6 @@ body {
 
 .screen.menu button {
   width: 100%;
-  margin-bottom: 12px;
 }
 
 .screen.menu footer {
@@ -507,7 +506,7 @@ body {
 
 .menu-action.history-btn {
   width: 100%;
-  margin-top: 14px;
+  margin-bottom: 14px;
   padding: 12px 16px;
 
   background: #ecfdf5;
@@ -529,6 +528,20 @@ body {
 
 .menu-action.history-btn:active {
   transform: scale(0.98);
+}
+
+/* =========================
+   Unified secondary buttons
+========================= */
+
+.history-copy-btn {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.history-copy-btn:hover {
+  background: #d1fae5;
 }
 
 
@@ -584,3 +597,4 @@ body {
   width: calc(100% - 32px);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
+

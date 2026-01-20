@@ -1,16 +1,16 @@
+// src/screens/build.ts
+
 import { renderHeader } from "../blocks/header";
 import { createPromptBuilder } from "../blocks/promptBuilder";
 import { renderPromptResult } from "../blocks/promptResult";
-import { addHistory } from "../blocks/historyStore";
+import { createCopyButton } from "../blocks/copyButton";
 
 import photoConfig from "../data/build.photo.json";
 import videoConfig from "../data/build.video.json";
 
-import { showAdModal } from "../blocks/adModal";
-
 export function renderBuild(
   root: HTMLElement,
-  navigate: (screen: any) => void,
+  navigate: (screen: any) => void, // intentionally unused
   back: () => void,
   mode: "photo" | "video"
 ) {
@@ -46,7 +46,7 @@ export function renderBuild(
 
   function updateResult() {
     resultRoot.innerHTML = renderPromptResult({
-      title: "Описание промта",
+      title: "Описание промпта",
       description: builder.getRuResult(),
     });
   }
@@ -54,40 +54,21 @@ export function renderBuild(
   // первый рендер
   updateResult();
 
-  // live update при изменении селектов
+  // live update
   builder.element.addEventListener("change", updateResult);
 
-  // --- Copy button ---
-  const copyBtn = document.createElement("button");
-  copyBtn.className = "btn green full";
-  copyBtn.textContent = "Скопировать";
-
-  copyBtn.addEventListener("click", async () => {
-    const en = builder.getEnPrompt();
-    const ru = builder.getRuResult();
-
-    await navigator.clipboard.writeText(en);
-
-    addHistory({
-      source: "build",
-      ru,
-      en,
-      date: Date.now(),
-    });
-
-    showAdModal();
-
-    copyBtn.textContent = "Скопировано";
-    setTimeout(() => {
-      copyBtn.textContent = "Скопировать";
-    }, 1500);
+  // --- Copy button (block) ---
+  const copyButton = createCopyButton({
+    getEn: () => builder.getEnPrompt(),
+    getRu: () => builder.getRuResult(),
+    source: "build",
   });
 
   // ===== Append =====
   main.appendChild(ad);
   main.appendChild(builder.element);
   main.appendChild(resultRoot);
-  main.appendChild(copyBtn);
+  main.appendChild(copyButton);
 
   root.appendChild(main);
 }
