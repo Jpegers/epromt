@@ -21,7 +21,7 @@ type BuildConfig = {
 
 /**
  * PromptBuilder
- * - рендерит UI по переданному JSON
+ * - рендерит UI по JSON
  * - хранит выбранные значения
  * - отдаёт RU и EN результат
  */
@@ -79,16 +79,28 @@ export function createPromptBuilder(config: BuildConfig) {
    * RU описание (для пользователя)
    */
   function getRuResult(): string {
-    return cfg.order
-      .map((groupKey) => {
-        const group = cfg.groups.find((g) => g.key === groupKey);
-        if (!group) return "";
+    const parts: string[] = [];
 
-        const opt = group.options.find((o) => o.key === state[group.key]);
-        return opt?.ru ?? "";
-      })
-      .filter(Boolean)
-      .join(", ");
+    cfg.order.forEach((groupKey) => {
+      const group = cfg.groups.find((g) => g.key === groupKey);
+      if (!group) return;
+
+      const key = state[group.key];
+      if (!key || key === "__none") return;
+
+      const opt = group.options.find((o) => o.key === key);
+      if (!opt) return;
+
+      parts.push(
+        `${group.labelRu.toLowerCase()} «${opt.ru.toLowerCase()}»`
+      );
+    });
+
+    if (parts.length === 0) {
+      return "Выберите параметры сцены. Их можно использовать с текстовым описанием или с вашим изображением.";
+    }
+
+    return `Параметры промта: ${parts.join(", ")}.`;
   }
 
   /**
@@ -100,7 +112,10 @@ export function createPromptBuilder(config: BuildConfig) {
         const group = cfg.groups.find((g) => g.key === groupKey);
         if (!group) return "";
 
-        const opt = group.options.find((o) => o.key === state[group.key]);
+        const key = state[group.key];
+        if (!key || key === "__none") return "";
+
+        const opt = group.options.find((o) => o.key === key);
         return opt?.en ?? "";
       })
       .filter(Boolean)

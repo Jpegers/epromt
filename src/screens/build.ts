@@ -1,12 +1,12 @@
 import { renderHeader } from "../blocks/header";
 import { createPromptBuilder } from "../blocks/promptBuilder";
+import { renderPromptResult } from "../blocks/promptResult";
 import { addHistory } from "../blocks/historyStore";
 
 import photoConfig from "../data/build.photo.json";
 import videoConfig from "../data/build.video.json";
 
 import { showAdModal } from "../blocks/adModal";
-
 
 export function renderBuild(
   root: HTMLElement,
@@ -41,17 +41,21 @@ export function renderBuild(
   );
 
   // --- Result ---
-  const result = document.createElement("section");
-  result.className = "card result";
+  const resultRoot = document.createElement("div");
+  resultRoot.className = "block";
 
-  const resultText = document.createElement("p");
-  resultText.textContent = builder.getRuResult();
-  result.appendChild(resultText);
+  function updateResult() {
+    resultRoot.innerHTML = renderPromptResult({
+      title: "Описание промта",
+      description: builder.getRuResult(),
+    });
+  }
 
-  // --- Live update RU result ---
-  main.addEventListener("change", () => {
-    resultText.textContent = builder.getRuResult();
-  });
+  // первый рендер
+  updateResult();
+
+  // live update при изменении селектов
+  builder.element.addEventListener("change", updateResult);
 
   // --- Copy button ---
   const copyBtn = document.createElement("button");
@@ -71,7 +75,7 @@ export function renderBuild(
       date: Date.now(),
     });
 
-    showAdModal(); // ← реклама после копирования
+    showAdModal();
 
     copyBtn.textContent = "Скопировано";
     setTimeout(() => {
@@ -82,9 +86,8 @@ export function renderBuild(
   // ===== Append =====
   main.appendChild(ad);
   main.appendChild(builder.element);
-  main.appendChild(result);
+  main.appendChild(resultRoot);
   main.appendChild(copyBtn);
 
   root.appendChild(main);
-
 }

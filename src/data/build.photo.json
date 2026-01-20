@@ -21,10 +21,8 @@
       "default": "__none",
       "options": [
         { "key": "__none", "ru": "Выбрать", "en": "" },
-        { "key": "__random", "ru": "Случайно", "en": "" },
-
         {
-          "key": "portrait", 
+          "key": "portrait",
           "ru": "Портрет",
           "en": "a highly detailed visual scene, focused on a single subject, portrait-style framing, clear subject emphasis"
         },
@@ -55,14 +53,13 @@
         }
       ]
     },
+
     {
       "key": "action",
       "labelRu": "Сюжет и действие",
       "default": "__none",
       "options": [
         { "key": "__none", "ru": "Выбрать", "en": "" },
-        { "key": "__random", "ru": "Случайно", "en": "" },
-
         {
           "key": "static",
           "ru": "Статичная сцена",
@@ -90,293 +87,284 @@
         }
       ]
     },
-    {
-  "key": "composition",
-  "labelRu": "Композиция",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-    { "key": "__random", "ru": "Случайно", "en": "" },
 
     {
-      "key": "close_up",
-      "ru": "Крупный план",
-      "en": "a highly detailed visual scene, close-up composition, strong focus on main subject, minimal background distractions"
+      "key": "composition",
+      "labelRu": "Композиция",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        {
+          "key": "close_up",
+          "ru": "Крупный план",
+          "en": "a highly detailed visual scene, close-up composition, strong focus on main subject, minimal background distractions"
+        },
+        {
+          "key": "medium",
+          "ru": "Средний план",
+          "en": "a highly detailed visual scene, medium shot composition, balanced framing between subject and environment"
+        },
+        {
+          "key": "full_body",
+          "ru": "В полный рост",
+          "en": "a highly detailed visual scene, full body framing, subject fully visible within the scene"
+        },
+        {
+          "key": "wide",
+          "ru": "Общий план",
+          "en": "a highly detailed visual scene, wide composition, strong sense of space and environment"
+        },
+        {
+          "key": "centered",
+          "ru": "Центрированная",
+          "en": "a highly detailed visual scene, centered composition, symmetrical balance, clear focal point"
+        },
+        {
+          "key": "rule_of_thirds",
+          "ru": "Правило третей",
+          "en": "a highly detailed visual scene, rule of thirds composition, dynamic balanced framing"
+        },
+        {
+          "key": "negative_space",
+          "ru": "Много воздуха",
+          "en": "a highly detailed visual scene, large negative space, minimalistic composition, clean visual breathing room"
+        }
+      ]
     },
+
     {
-      "key": "medium",
-      "ru": "Средний план",
-      "en": "a highly detailed visual scene, medium shot composition, balanced framing between subject and environment"
+      "key": "perspective",
+      "labelRu": "Ракурс и перспектива",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        {
+          "key": "eye_level",
+          "ru": "На уровне глаз",
+          "en": "a highly detailed visual scene, eye-level perspective, natural viewer viewpoint"
+        },
+        {
+          "key": "low_angle",
+          "ru": "Снизу вверх",
+          "en": "a highly detailed visual scene, low-angle perspective, powerful and dominant visual feeling"
+        },
+        {
+          "key": "high_angle",
+          "ru": "Сверху вниз",
+          "en": "a highly detailed visual scene, high-angle perspective, overview and vulnerability emphasis"
+        },
+        {
+          "key": "top_down",
+          "ru": "Вид сверху",
+          "en": "a highly detailed visual scene, top-down view, flat lay style perspective"
+        },
+        {
+          "key": "dramatic",
+          "ru": "Драматичный ракурс",
+          "en": "a highly detailed visual scene, dramatic perspective, exaggerated depth and visual tension"
+        }
+      ]
     },
+
     {
-      "key": "full_body",
-      "ru": "В полный рост",
-      "en": "a highly detailed visual scene, full body framing, subject fully visible within the scene"
+      "key": "lighting",
+      "labelRu": "Свет",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        {
+          "key": "soft_natural",
+          "ru": "Мягкий естественный",
+          "en": "a highly detailed visual scene, soft natural lighting, smooth shadows, realistic light falloff"
+        },
+        {
+          "key": "studio_soft",
+          "ru": "Студийный мягкий",
+          "en": "a highly detailed visual scene, controlled studio lighting, even illumination, clean shadows"
+        },
+        {
+          "key": "dramatic_light",
+          "ru": "Драматичный",
+          "en": "a highly detailed visual scene, dramatic lighting, strong contrast, deep shadows"
+        },
+        {
+          "key": "backlight",
+          "ru": "Контровой",
+          "en": "a highly detailed visual scene, backlighting, glowing edges, strong silhouette effect"
+        },
+        {
+          "key": "neon",
+          "ru": "Неоновый",
+          "en": "a highly detailed visual scene, neon lighting, vibrant artificial colors, futuristic mood"
+        }
+      ]
     },
+
     {
-      "key": "wide",
-      "ru": "Общий план",
-      "en": "a highly detailed visual scene, wide composition, strong sense of space and environment"
+      "key": "environment",
+      "labelRu": "Окружение и фон",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        {
+          "key": "studio",
+          "ru": "Студийный фон",
+          "en": "a highly detailed visual scene, clean studio background, controlled environment, distraction-free setting"
+        },
+        {
+          "key": "minimal",
+          "ru": "Минималистичный фон",
+          "en": "a highly detailed visual scene, minimal background, simple shapes, clean visual space"
+        },
+        {
+          "key": "urban",
+          "ru": "Городская среда",
+          "en": "a highly detailed visual scene, urban environment, city architecture, street atmosphere"
+        },
+        {
+          "key": "interior",
+          "ru": "Интерьер",
+          "en": "a highly detailed visual scene, interior space, realistic room environment, contextual details"
+        },
+        {
+          "key": "nature",
+          "ru": "Природа",
+          "en": "a highly detailed visual scene, natural environment, organic landscape, outdoor setting"
+        },
+        {
+          "key": "night_city",
+          "ru": "Ночной город",
+          "en": "a highly detailed visual scene, night city environment, artificial lights, cinematic urban mood"
+        },
+        {
+          "key": "abstract",
+          "ru": "Абстрактный фон",
+          "en": "a highly detailed visual scene, abstract background, non-literal environment, artistic atmosphere"
+        }
+      ]
     },
+
     {
-      "key": "centered",
-      "ru": "Центрированная",
-      "en": "a highly detailed visual scene, centered composition, symmetrical balance, clear focal point"
+      "key": "style",
+      "labelRu": "Визуальный стиль",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        {
+          "key": "photorealistic",
+          "ru": "Фотореализм",
+          "en": "a highly detailed visual scene, photorealistic rendering, lifelike textures, natural proportions, realistic lighting"
+        },
+        {
+          "key": "cinematic",
+          "ru": "Кинематографичный",
+          "en": "a highly detailed visual scene, cinematic style, film-like lighting, dramatic composition"
+        },
+        {
+          "key": "editorial",
+          "ru": "Редакционный",
+          "en": "a highly detailed visual scene, editorial style, magazine-quality composition, polished aesthetics"
+        },
+        {
+          "key": "illustration",
+          "ru": "Иллюстрация",
+          "en": "a highly detailed visual scene, illustrative style, hand-drawn or painterly look"
+        },
+        {
+          "key": "anime",
+          "ru": "Аниме",
+          "en": "a highly detailed visual scene, anime-inspired style, expressive characters, stylized visuals"
+        },
+        {
+          "key": "three_d",
+          "ru": "3D-рендер",
+          "en": "a highly detailed visual scene, 3D render style, volumetric lighting, realistic materials"
+        },
+        {
+          "key": "cgi",
+          "ru": "CGI",
+          "en": "a highly detailed visual scene, CGI rendering, high-end visual effects, computer-generated imagery"
+        },
+        {
+          "key": "pixel",
+          "ru": "Пиксель-арт",
+          "en": "a highly detailed visual scene, pixel art style, low-resolution aesthetic, retro digital look"
+        }
+      ]
     },
+
     {
-      "key": "rule_of_thirds",
-      "ru": "Правило третей",
-      "en": "a highly detailed visual scene, rule of thirds composition, dynamic balanced framing"
+      "key": "mood",
+      "labelRu": "Цвет и атмосфера",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        {
+          "key": "warm",
+          "ru": "Тёплая",
+          "en": "a highly detailed visual scene, warm color palette, soft tones, cozy atmosphere"
+        },
+        {
+          "key": "cold",
+          "ru": "Холодная",
+          "en": "a highly detailed visual scene, cold color palette, cool tones, distant mood"
+        },
+        {
+          "key": "dark",
+          "ru": "Мрачная",
+          "en": "a highly detailed visual scene, dark moody atmosphere, low light, deep shadows"
+        },
+        {
+          "key": "bright",
+          "ru": "Яркая",
+          "en": "a highly detailed visual scene, bright vivid colors, energetic atmosphere"
+        },
+        {
+          "key": "muted",
+          "ru": "Приглушённая",
+          "en": "a highly detailed visual scene, muted color palette, subtle tones, restrained mood"
+        },
+        {
+          "key": "pastel",
+          "ru": "Пастельная",
+          "en": "a highly detailed visual scene, pastel colors, soft gradients, gentle atmosphere"
+        }
+      ]
     },
+
     {
-      "key": "negative_space",
-      "ru": "Много воздуха",
-      "en": "a highly detailed visual scene, large negative space, minimalistic composition, clean visual breathing room"
+      "key": "quality",
+      "labelRu": "Качество и проработка",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        {
+          "key": "ultra_detail",
+          "ru": "Высокая детализация",
+          "en": "a highly detailed visual scene, ultra-detailed textures, fine details throughout the image"
+        },
+        {
+          "key": "sharp_focus",
+          "ru": "Чёткий фокус",
+          "en": "a highly detailed visual scene, sharp focus, crisp details, clear subject definition"
+        },
+        {
+          "key": "professional",
+          "ru": "Профессиональный уровень",
+          "en": "a highly detailed visual scene, professional quality, clean rendering, balanced composition"
+        },
+        {
+          "key": "high_resolution",
+          "ru": "Высокое разрешение",
+          "en": "a highly detailed visual scene, high resolution output, clean edges, no visible artifacts"
+        },
+        {
+          "key": "natural_colors",
+          "ru": "Естественные цвета",
+          "en": "a highly detailed visual scene, natural color grading, realistic tones, balanced saturation"
+        }
+      ]
     }
-  ]
-},
-{
-  "key": "perspective",
-  "labelRu": "Ракурс и перспектива",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-    { "key": "__random", "ru": "Случайно", "en": "" },
-
-    {
-      "key": "eye_level",
-      "ru": "На уровне глаз",
-      "en": "a highly detailed visual scene, eye-level perspective, natural viewer viewpoint"
-    },
-    {
-      "key": "low_angle",
-      "ru": "Снизу вверх",
-      "en": "a highly detailed visual scene, low-angle perspective, powerful and dominant visual feeling"
-    },
-    {
-      "key": "high_angle",
-      "ru": "Сверху вниз",
-      "en": "a highly detailed visual scene, high-angle perspective, overview and vulnerability emphasis"
-    },
-    {
-      "key": "top_down",
-      "ru": "Вид сверху",
-      "en": "a highly detailed visual scene, top-down view, flat lay style perspective"
-    },
-    {
-      "key": "dramatic",
-      "ru": "Драматичный ракурс",
-      "en": "a highly detailed visual scene, dramatic perspective, exaggerated depth and visual tension"
-    }
-  ]
-},
-{
-  "key": "lighting",
-  "labelRu": "Свет",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-    { "key": "__random", "ru": "Случайно", "en": "" },
-
-    {
-      "key": "soft_natural",
-      "ru": "Мягкий естественный",
-      "en": "a highly detailed visual scene, soft natural lighting, smooth shadows, realistic light falloff"
-    },
-    {
-      "key": "studio_soft",
-      "ru": "Студийный мягкий",
-      "en": "a highly detailed visual scene, controlled studio lighting, even illumination, clean shadows"
-    },
-    {
-      "key": "dramatic_light",
-      "ru": "Драматичный",
-      "en": "a highly detailed visual scene, dramatic lighting, strong contrast, deep shadows"
-    },
-    {
-      "key": "backlight",
-      "ru": "Контровой",
-      "en": "a highly detailed visual scene, backlighting, glowing edges, strong silhouette effect"
-    },
-    {
-      "key": "neon",
-      "ru": "Неоновый",
-      "en": "a highly detailed visual scene, neon lighting, vibrant artificial colors, futuristic mood"
-    }
-  ]
-},
-
-
-{
-  "key": "environment",
-  "labelRu": "Окружение и фон",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-    { "key": "__random", "ru": "Случайно", "en": "" },
-
-    {
-      "key": "studio",
-      "ru": "Студийный фон",
-      "en": "a highly detailed visual scene, clean studio background, controlled environment, distraction-free setting"
-    },
-    {
-      "key": "minimal",
-      "ru": "Минималистичный фон",
-      "en": "a highly detailed visual scene, minimal background, simple shapes, clean visual space"
-    },
-    {
-      "key": "urban",
-      "ru": "Городская среда",
-      "en": "a highly detailed visual scene, urban environment, city architecture, street atmosphere"
-    },
-    {
-      "key": "interior",
-      "ru": "Интерьер",
-      "en": "a highly detailed visual scene, interior space, realistic room environment, contextual details"
-    },
-    {
-      "key": "nature",
-      "ru": "Природа",
-      "en": "a highly detailed visual scene, natural environment, organic landscape, outdoor setting"
-    },
-    {
-      "key": "night_city",
-      "ru": "Ночной город",
-      "en": "a highly detailed visual scene, night city environment, artificial lights, cinematic urban mood"
-    },
-    {
-      "key": "abstract",
-      "ru": "Абстрактный фон",
-      "en": "a highly detailed visual scene, abstract background, non-literal environment, artistic atmosphere"
-    }
-  ]
-},
-{
-  "key": "style",
-  "labelRu": "Визуальный стиль",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-    { "key": "__random", "ru": "Случайно", "en": "" },
-
-    {
-      "key": "photorealistic",
-      "ru": "Фотореализм",
-      "en": "a highly detailed visual scene, photorealistic rendering, lifelike textures, natural proportions, realistic lighting"
-    },
-    {
-      "key": "cinematic",
-      "ru": "Кинематографичный",
-      "en": "a highly detailed visual scene, cinematic style, film-like lighting, dramatic composition"
-    },
-    {
-      "key": "editorial",
-      "ru": "Редакционный",
-      "en": "a highly detailed visual scene, editorial style, magazine-quality composition, polished aesthetics"
-    },
-    {
-      "key": "illustration",
-      "ru": "Иллюстрация",
-      "en": "a highly detailed visual scene, illustrative style, hand-drawn or painterly look"
-    },
-    {
-      "key": "anime",
-      "ru": "Аниме",
-      "en": "a highly detailed visual scene, anime-inspired style, expressive characters, stylized visuals"
-    },
-    {
-      "key": "three_d",
-      "ru": "3D-рендер",
-      "en": "a highly detailed visual scene, 3D render style, volumetric lighting, realistic materials"
-    },
-    {
-      "key": "cgi",
-      "ru": "CGI",
-      "en": "a highly detailed visual scene, CGI rendering, high-end visual effects, computer-generated imagery"
-    },
-    {
-      "key": "pixel",
-      "ru": "Пиксель-арт",
-      "en": "a highly detailed visual scene, pixel art style, low-resolution aesthetic, retro digital look"
-    }
-  ]
-},
-{
-  "key": "mood",
-  "labelRu": "Цвет и атмосфера",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-    { "key": "__random", "ru": "Случайно", "en": "" },
-
-    {
-      "key": "warm",
-      "ru": "Тёплая",
-      "en": "a highly detailed visual scene, warm color palette, soft tones, cozy atmosphere"
-    },
-    {
-      "key": "cold",
-      "ru": "Холодная",
-      "en": "a highly detailed visual scene, cold color palette, cool tones, distant mood"
-    },
-    {
-      "key": "dark",
-      "ru": "Мрачная",
-      "en": "a highly detailed visual scene, dark moody atmosphere, low light, deep shadows"
-    },
-    {
-      "key": "bright",
-      "ru": "Яркая",
-      "en": "a highly detailed visual scene, bright vivid colors, energetic atmosphere"
-    },
-    {
-      "key": "muted",
-      "ru": "Приглушённая",
-      "en": "a highly detailed visual scene, muted color palette, subtle tones, restrained mood"
-    },
-    {
-      "key": "pastel",
-      "ru": "Пастельная",
-      "en": "a highly detailed visual scene, pastel colors, soft gradients, gentle atmosphere"
-    }
-  ]
-},
-{
-  "key": "quality",
-  "labelRu": "Качество и проработка",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-    { "key": "__random", "ru": "Случайно", "en": "" },
-
-    {
-      "key": "ultra_detail",
-      "ru": "Высокая детализация",
-      "en": "a highly detailed visual scene, ultra-detailed textures, fine details throughout the image"
-    },
-    {
-      "key": "sharp_focus",
-      "ru": "Чёткий фокус",
-      "en": "a highly detailed visual scene, sharp focus, crisp details, clear subject definition"
-    },
-    {
-      "key": "professional",
-      "ru": "Профессиональный уровень",
-      "en": "a highly detailed visual scene, professional quality, clean rendering, balanced composition"
-    },
-    {
-      "key": "high_resolution",
-      "ru": "Высокое разрешение",
-      "en": "a highly detailed visual scene, high resolution output, clean edges, no visible artifacts"
-    },
-    {
-      "key": "natural_colors",
-      "ru": "Естественные цвета",
-      "en": "a highly detailed visual scene, natural color grading, realistic tones, balanced saturation"
-    }
-  ]
-}
 
   ]
 }
