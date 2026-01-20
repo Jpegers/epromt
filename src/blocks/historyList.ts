@@ -14,16 +14,38 @@ export function renderHistory(root: HTMLElement) {
   list.forEach((i) => {
     const row = document.createElement("div");
     row.className = "history-item";
-    row.innerHTML = `
-      <div class="history-text">
-        <small>${new Date(i.date).toLocaleString()}</small>
-        <p>${i.ru}</p>
-      </div>
-      <button class="icon-btn">⧉</button>
+
+    const text = document.createElement("div");
+    text.className = "history-text";
+    text.innerHTML = `
+      <small>${new Date(i.date).toLocaleString()}</small>
+      <p>${i.ru}</p>
     `;
-    row.querySelector("button")!.onclick = async () => {
-      await navigator.clipboard.writeText(i.en);
+
+    const btn = document.createElement("button");
+    btn.className = "icon-btn";
+    btn.textContent = "📋";
+    btn.title = "Скопировать промпт";
+
+    btn.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(i.en);
+
+        // UX feedback
+        btn.textContent = "✔";
+        btn.disabled = true;
+
+        setTimeout(() => {
+          btn.textContent = "📋";
+          btn.disabled = false;
+        }, 800);
+      } catch {
+        // ничего не делаем — тихий фейл
+      }
     };
+
+    row.appendChild(text);
+    row.appendChild(btn);
     wrap.appendChild(row);
   });
 

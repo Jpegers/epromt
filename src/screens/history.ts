@@ -33,20 +33,35 @@ export function renderHistory(
           ? "Конструктор"
           : "Шаблон" + (item.title ? ` · ${item.title}` : "");
 
-     row.innerHTML = `
+      row.innerHTML = `
         <div class="history-content">
-            <div class="history-meta">
+          <div class="history-meta">
             <strong>${sourceLabel}</strong> · ${new Date(item.date).toLocaleString()}
-            </div>
-            <div class="history-text">${item.ru}</div>
+          </div>
+          <div class="history-text">${item.ru}</div>
         </div>
-        <button class="history-copy-btn" title="Скопировать">⧉</button>
-        `;
+        <button class="history-copy-btn" title="Скопировать">📋</button>
+      `;
 
+      const btn = row.querySelector(
+        ".history-copy-btn"
+      ) as HTMLButtonElement;
 
+      btn.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(item.en);
 
-      row.querySelector("button")!.onclick = async () => {
-        await navigator.clipboard.writeText(item.en);
+          // UX feedback
+          btn.textContent = "✔";
+          btn.disabled = true;
+
+          setTimeout(() => {
+            btn.textContent = "📋";
+            btn.disabled = false;
+          }, 800);
+        } catch {
+          // тихо игнорируем
+        }
       };
 
       listWrap.appendChild(row);
@@ -56,8 +71,6 @@ export function renderHistory(
   renderList();
 
   // ===== Load more =====
-
-
   if (history.length > visibleCount) {
     const moreWrap = document.createElement("div");
     moreWrap.className = "history-more";
