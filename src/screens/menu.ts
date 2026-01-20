@@ -34,7 +34,7 @@ export function renderMenu(
       </div>
     </section>
 
-    <button class="menu-action history-btn" id="history">История копирований</button>
+    <button class="btn secondary full" id="history">История копирований</button>
 
     <footer class="links">
       <button class="link" id="instruction">Инструкция</button>

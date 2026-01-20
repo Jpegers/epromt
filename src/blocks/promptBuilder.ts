@@ -24,7 +24,7 @@ type BuildConfig = {
  * - рендерит UI по JSON
  * - хранит выбранные значения
  * - отдаёт RU и EN результат
- * - умеет рандомизировать все параметры
+ * - умеет рандомизировать и сбрасывать параметры
  */
 export function createPromptBuilder(config: BuildConfig) {
   const cfg = config as BuildConfig;
@@ -48,14 +48,25 @@ export function createPromptBuilder(config: BuildConfig) {
   const title = document.createElement("h3");
   title.textContent = "Параметры";
 
+  // actions row (Случайно / Очистить)
+  const actions = document.createElement("div");
+  actions.className = "actions";
+
   const randomBtn = document.createElement("button");
   randomBtn.type = "button";
-  randomBtn.className = "menu-action history-btn";
+  randomBtn.className = "btn secondary";
   randomBtn.textContent = "🎲 Случайно";
 
+  const resetBtn = document.createElement("button");
+  resetBtn.type = "button";
+  resetBtn.className = "btn secondary";
+  resetBtn.textContent = "✖ Очистить";
+
+  actions.appendChild(randomBtn);
+  actions.appendChild(resetBtn);
 
   header.appendChild(title);
-  header.appendChild(randomBtn);
+  header.appendChild(actions);
   root.appendChild(header);
 
   // ===== UI =====
@@ -109,7 +120,19 @@ export function createPromptBuilder(config: BuildConfig) {
       selects[group.key].value = randomOpt.key;
     });
 
-    // триггерим обновление RU/EN
+    root.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+
+  // ===== RESET ALL =====
+  resetBtn.addEventListener("click", () => {
+    cfg.order.forEach((groupKey) => {
+      const group = cfg.groups.find((g) => g.key === groupKey);
+      if (!group) return;
+
+      state[group.key] = "__none";
+      selects[group.key].value = "__none";
+    });
+
     root.dispatchEvent(new Event("change", { bubbles: true }));
   });
 

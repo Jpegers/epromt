@@ -1,20 +1,27 @@
-/* =========================
-   THEME VARIABLES
-   Light / Dark (Telegram-like)
-========================= */
+/* =========================================================
+   BASE / DESIGN SYSTEM
+   Theme, Reset, Typography
+========================================================= */
+
+/* -------------------------
+   Theme variables
+------------------------- */
 
 :root {
+  /* Backgrounds */
   --bg-main: #f4f6f8;
   --bg-card: #ffffff;
   --bg-header: #ffffff;
 
+  /* Text */
   --text-main: #111111;
   --text-muted: #6b7280;
 
+  /* Borders */
   --border-soft: #e5e7eb;
 }
 
-/* Dark theme (system / Telegram-like) */
+/* Dark theme (Telegram-like) */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-main: #1f2329;
@@ -28,11 +35,13 @@
   }
 }
 
-/* =========================
-   BASE / RESET
-========================= */
+/* -------------------------
+   Reset / Base
+------------------------- */
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -40,21 +49,55 @@ html,
 body {
   margin: 0;
   padding: 0;
+
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, sans-serif;
 
   background: var(--bg-main);
   color: var(--text-main);
+
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+/* -------------------------
+   Headings reset
+------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0px;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+}
+
+.block > h3 {
+  margin-bottom: 10px;
 }
 
 
+/* Root */
 #app {
   min-height: 100vh;
+  touch-action: manipulation;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* Remove tap highlights */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* =========================================================
+   UI KIT / BLOCKS
+   Header, Buttons, Cards, Forms, Modal
+========================================================= */
+
+/* -------------------------
+   Header
+------------------------- */
 
 .app-header {
   position: sticky;
@@ -66,37 +109,39 @@ body {
   border-bottom: 1px solid var(--border-soft);
 }
 
-
 .app-header-inner {
   display: flex;
   align-items: center;
   gap: 12px;
 
-  padding: 14px 16px;
   max-width: 720px;
   margin: 0 auto;
 }
 
-.app-header.menu-header .app-header-inner {
-  padding: 12px 16px;
+.header-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
 .app-header.menu-header .header-title {
   font-size: 24px;
-  font-weight: 600;
 }
 
-
+/* Back button */
 .back-button {
   width: 32px;
   height: 32px;
-  font-size: 16px;
 
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 10px;
+  border: 1px solid var(--border-soft);
 
-  background: #f0f2f5;
-  color: #111;
+  background: var(--bg-card);
+  color: var(--text-main);
 
   font-size: 18px;
   cursor: pointer;
@@ -106,62 +151,13 @@ body {
   transform: scale(0.96);
 }
 
-.header-title {
-  font-size: 16px;
-  font-weight: 600;
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
-/* =========================
-   LAYOUT
-========================= */
-
-.screen {
-  padding: 16px;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.card {
-  background: var(--bg-card);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 16px;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-}
-
-
-.card.block h3 {
-  margin: 0 0 12px;
-  font-size: 15px;
-}
-
-/* =========================
-   AD BLOCK
-========================= */
-
-.card.ad {
-  background: linear-gradient(135deg, #e6f7f2, #f0fdfa);
-  border: 1px dashed #6ee7b7;
-
-  color: #065f46;
-  font-size: 14px;
-  text-align: center;
-
-  cursor: pointer;
-}
-
-.card.ad:hover {
-  background: linear-gradient(135deg, #d1fae5, #ecfeff);
-}
-
-/* =========================
-   BUTTONS
-========================= */
+/* -------------------------
+   Buttons
+------------------------- */
 
 .btn {
   display: inline-flex;
@@ -182,16 +178,16 @@ body {
   color: #111;
 }
 
-/* CTA: Copy button spacing */
-.btn.green.btn.full {
-  margin-bottom: 16px;
-}
-
-
 .btn:active {
   transform: scale(0.97);
 }
 
+.btn.full {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Primary CTA */
 .btn.green {
   background: #10b981;
   color: #ffffff;
@@ -201,20 +197,80 @@ body {
   background: #0ea371;
 }
 
-.btn.full {
-  width: 100%;
-  margin-top: 8px;
-}
-
-/* CTA: кнопка копирования */
+/* CTA spacing (Copy button) */
 .btn.green.btn.full {
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 
+/* -------------------------
+   Secondary buttons
+------------------------- */
 
-/* =========================
-   FORM / CONSTRUCTOR
-========================= */
+.btn.secondary {
+  height: 40px;
+  padding: 0 14px;
+
+  border-radius: 12px;
+  border: 1px solid var(--border-soft);
+
+  background: var(--bg-card);
+  color: var(--text-main);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  cursor: pointer;
+}
+
+.btn.secondary:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.btn.secondary:active {
+  transform: scale(0.97);
+}
+
+/* -------------------------
+   Cards (unified surface)
+------------------------- */
+
+.card,
+.template-card,
+.history-item,
+.modal {
+  background: var(--bg-card);
+  border-radius: 16px;
+}
+
+.card {
+  padding: 16px;
+  margin-bottom: 16px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Ad card */
+.card.ad {
+  background: linear-gradient(135deg, #e6f7f2, #f0fdfa);
+  border: 1px dashed #6ee7b7;
+
+  color: #065f46;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card.ad:hover {
+  background: linear-gradient(135deg, #d1fae5, #ecfeff);
+}
+
+/* -------------------------
+   Forms
+------------------------- */
 
 .field {
   display: flex;
@@ -225,7 +281,7 @@ body {
 
 .field label {
   font-size: 13px;
-  color: #374151;
+  color: var(--text-muted);
 }
 
 .field select {
@@ -233,27 +289,74 @@ body {
   padding: 0 12px;
 
   border-radius: 10px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-soft);
 
   font-size: 14px;
-  background: #ffffff;
+  background: var(--bg-card);
+  color: var(--text-main);
 }
 
-/* =========================
-   RESULT
-========================= */
+/* -------------------------
+   Icon buttons
+------------------------- */
 
-.card.result {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+.icon-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
 
-  font-size: 14px;
-  color: #374151;
+  background: var(--bg-card);
+  color: var(--text-main);
+
+  cursor: pointer;
 }
 
-/* =========================
-   MENU
-========================= */
+/* -------------------------
+   Modal (surface only)
+------------------------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  padding: 20px;
+  max-width: 320px;
+  width: calc(100% - 32px);
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal p {
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   SCREENS / LAYOUT
+   Screens, Grids, Page-specific rules, Responsive
+========================================================= */
+
+/* -------------------------
+   Base screen layout
+------------------------- */
+
+.screen {
+  padding: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* -------------------------
+   Menu screen
+------------------------- */
 
 .screen.menu button {
   width: 100%;
@@ -272,13 +375,24 @@ body {
   padding: 8px;
 
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-muted);
   cursor: pointer;
 }
 
-/* =========================
-   TEMPLATES GRID
-========================= */
+/* One-line actions (photo / video) */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0px;
+}
+
+.actions .btn {
+  flex: 1;
+}
+
+/* -------------------------
+   Templates list
+------------------------- */
 
 .template-grid {
   display: grid;
@@ -287,11 +401,7 @@ body {
 }
 
 .template-card {
-  background: #ffffff;
-  border-radius: 14px;
   padding: 8px;
-
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
 
@@ -304,35 +414,35 @@ body {
   aspect-ratio: 1 / 1;
   border-radius: 10px;
 
-  background: #e5e7eb;
+  background: rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
 
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-muted);
   margin-bottom: 6px;
 }
 
 .template-title {
   font-size: 12px;
   text-align: center;
-  color: #111;
+  color: var(--text-main);
 }
 
-/* =========================
-   TEMPLATE DETAIL
-========================= */
+/* -------------------------
+   Template detail
+------------------------- */
 
 .card.preview {
   aspect-ratio: 1 / 1;
-  background: #e5e7eb;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: #6b7280;
   font-size: 14px;
+  color: var(--text-muted);
 }
 
 .template-info h3 {
@@ -342,12 +452,118 @@ body {
 
 .template-info p {
   font-size: 14px;
-  color: #374151;
+  color: var(--text-main);
+  opacity: 0.85;
 }
 
-/* =========================
-   CONTACTS
-========================= */
+/* -------------------------
+   History screen
+------------------------- */
+
+.screen.history {
+  padding: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.history-item {
+  padding: 14px 16px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.history-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.history-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.history-meta strong {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.history-text {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-main);
+  word-break: break-word;
+}
+
+.history-copy-btn {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+
+  background: var(--bg-card);
+  color: #10b981;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.history-copy-btn:active {
+  transform: scale(0.95);
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 32px 0;
+}
+
+.history-more {
+  margin-top: 20px;
+}
+
+.history-more button {
+  width: 100%;
+  padding: 14px;
+
+  border-radius: 16px;
+  border: none;
+
+  background: #10b981;
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.history-more button:active {
+  transform: scale(0.98);
+}
+
+/* -------------------------
+   Contacts / lists
+------------------------- */
 
 .contact-list {
   list-style: none;
@@ -367,389 +583,12 @@ body {
   text-decoration: none;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* -------------------------
+   Responsive
+------------------------- */
 
 @media (max-width: 420px) {
   .template-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-
-
-/* =========================
-   one line menu btns 
-========================= */
-
-.actions {
-  display: flex;
-  gap: 12px;
-}
-
-.actions .btn {
-  flex: 1;
-}
-
-ъ
-
-/* =========================
-   HISTORY ITEM
-========================= */
-
-.history-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0;
-  border-top: 1px solid rgba(0,0,0,0.06);
-}
-
-.history-text p {
-  margin: 4px 0 0;
-}
-
-.icon-btn {
-  border: none;
-  background: var(--card-bg);
-  border-radius: 8px;
-  padding: 8px 10px;
-  cursor: pointer;
-}
-
-/* ============================= */
-/* HISTORY SCREEN */
-/* ============================= */
-
-.screen.history {
-  padding: 16px;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-/* Список */
-.history-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* Карточка одного промпта */
-.history-item {
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 14px 16px;
-
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-}
-
-/* Контент */
-.history-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* Источник + дата */
-.history-meta {
-  font-size: 13px;
-  color: #6b7280;
-}
-
-.history-meta strong {
-  color: #12b36f;
-  font-weight: 600;
-}
-
-/* Основной текст */
-.history-text {
-  font-size: 14px;
-  line-height: 1.45;
-  color: #111827;
-  word-break: break-word;
-}
-
-/* Кнопка копирования */
-.history-copy-btn {
-  width: 36px;
-  height: 36px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 10px;
-  border: none;
-
-  background: #f3f4f6; /* нейтральный фон */
-  color: #10b981;
-
-  font-size: 16px;
-  font-weight: 600;
-
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    transform 0.1s ease;
-}
-
-.history-copy-btn:hover {
-  background: #e6f7ef;
-}
-
-.history-copy-btn:active {
-  transform: scale(0.95);
-}
-
-
-
-/* Пустое состояние */
-.history-empty {
-  text-align: center;
-  color: #6b7280;
-  font-size: 14px;
-  padding: 32px 0;
-}
-
-/* Кнопка "Показать ещё" */
-.history-more {
-  margin-top: 20px;
-}
-
-.history-more button {
-  width: 100%;
-  padding: 14px;
-
-  border-radius: 16px;
-  border: none;
-
-  background: #10b981;
-  color: #ffffff;
-
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-
-  transition: background 0.15s ease, transform 0.1s ease;
-}
-
-.history-more button:hover {
-  background: #059669;
-}
-
-.history-more button:active {
-  transform: scale(0.98);
-}
-
-/* ============================= */
-/* MENU: History button (secondary) */
-/* ============================= */
-
-.menu-action.history-btn {
-  width: 100%;
-  margin-bottom: 14px;
-  padding: 12px 16px;
-
-  background: #ecfdf5;
-  color: #047857;
-
-  border: 1px solid #a7f3d0;
-  border-radius: 14px;
-
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-
-  cursor: pointer;
-}
-
-.menu-action.history-btn:hover {
-  background: #d1fae5;
-}
-
-.menu-action.history-btn:active {
-  transform: scale(0.98);
-}
-
-/* =========================
-   Unified secondary buttons
-========================= */
-
-.history-copy-btn {
-  background: #ecfdf5;
-  color: #047857;
-  border: 1px solid #a7f3d0;
-}
-
-.history-copy-btn:hover {
-  background: #d1fae5;
-}
-
-
-
-
-
-
-
-
-/* ===== Mobile UX hardening ===== */
-
-/* Отключаем double-tap zoom и жесты масштабирования */
-html,
-body {
-  touch-action: manipulation;
-  overscroll-behavior: none;
-  -webkit-text-size-adjust: 100%;
-}
-
-/* Убираем системный highlight и задержки */
-* {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-}
-
-/* Корень приложения */
-#app {
-  touch-action: manipulation;
-}
-
-
-/* =========================
-   MODALS
-========================= */
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-
-  background: rgba(0, 0, 0, 0.5);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal {
-  background: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  max-width: 320px;
-  width: calc(100% - 32px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
-
-
-
-
-
-
-
-
-
-
-
-/* =========================
-   THEME FIXES
-   Dark-mode alignment
-========================= */
-
-/* labels под select */
-.field label {
-  color: var(--text-muted);
-}
-
-/* header title */
-.header-title {
-  color: var(--text-main);
-}
-
-/* back button */
-.back-button {
-  background: var(--bg-card);
-  color: var(--text-main);
-  border: 1px solid var(--border-soft);
-}
-
-.back-button:hover {
-  background: rgba(0, 0, 0, 0.04);
-}
-
-/* template cards */
-.template-card {
-  background: var(--bg-card);
-}
-
-.template-title {
-  color: var(--text-main);
-}
-
-/* icon buttons (copy) */
-.icon-btn {
-  background: var(--bg-card);
-  color: var(--text-main);
-}
-
-/* =========================
-   HISTORY
-   Dark-mode contrast fix
-========================= */
-
-/* карточка истории */
-.history-item {
-  background: var(--bg-card);
-}
-
-/* основной текст */
-.history-text {
-  color: var(--text-main);
-}
-
-/* источник + дата */
-.history-meta {
-  color: var(--text-muted);
-}
-
-.history-meta strong {
-  color: #10b981; /* брендовый акцент */
-}
-
-/* =========================
-   MODAL — theme alignment
-========================= */
-
-.modal {
-  background: var(--bg-card);
-  color: var(--text-main);
-}
-
-/* вторичный текст внутри модалки */
-.modal p {
-  color: var(--text-muted);
-}
-
-/* кнопка вторичного действия */
-.modal .btn:not(.green) {
-  background: rgba(0, 0, 0, 0.06);
-  color: var(--text-main);
-}
-
-/* =========================
-   TEMPLATE DETAIL — text contrast
-========================= */
-
-/* описание шаблона */
-.template-info p {
-  color: var(--text-main);
-  opacity: 0.85; /* мягко, но читаемо */
-}
-/* fallback: описание под превью */
-.card + p {
-  color: var(--text-main);
-  opacity: 0.85;
 }
