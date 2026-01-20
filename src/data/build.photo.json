@@ -24,7 +24,7 @@
         { "key": "__random", "ru": "Случайно", "en": "" },
 
         {
-          "key": "portrait",
+          "key": "portrait", 
           "ru": "Портрет",
           "en": "a highly detailed visual scene, focused on a single subject, portrait-style framing, clear subject emphasis"
         },

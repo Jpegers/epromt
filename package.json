@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vite build && powershell -Command \"Remove-Item docs -Recurse -Force -ErrorAction SilentlyContinue; mkdir docs; xcopy dist docs /E /I /Y\""
   },
   "devDependencies": {
     "vite": "^5.4.0",
