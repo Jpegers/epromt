@@ -1,383 +1,135 @@
 {
-  "validation": {
-    "requireAtLeastOne": true,
-    "errorRu": "Выберите хотя бы один пункт"
-  },
   "order": [
-    "scene_type",
-    "action",
-    "composition",
-    "perspective",
-    "lighting",
-    "environment",
-    "style",
-    "mood",
-    "quality"
+    "base_frame",
+    "motion_target",
+    "motion_type",
+    "motion_style",
+    "camera_motion",
+    "temporal_behavior",
+    "quality_constraints"
   ],
   "groups": [
     {
-      "key": "scene_type",
-      "labelRu": "Тип сцены",
+      "key": "base_frame",
+      "labelRu": "Исходный кадр",
       "default": "__none",
       "options": [
         { "key": "__none", "ru": "Выбрать", "en": "" },
-
-        {
-          "key": "cinematic",
-          "ru": "Кинематографичная сцена",
-          "en": "a high-quality cinematic video scene, cinematic framing, film-like visual storytelling, strong narrative focus"
-        },
-        {
-          "key": "portrait_motion",
-          "ru": "Портрет с движением",
-          "en": "a high-quality cinematic video scene, portrait-based framing with subtle natural motion, stable starting frame"
-        },
-        {
-          "key": "lifestyle_motion",
-          "ru": "Лайфстайл сцена",
-          "en": "a high-quality cinematic video scene, natural lifestyle moment with organic movement over time"
-        },
-        {
-          "key": "action_scene",
-          "ru": "Динамичная сцена",
-          "en": "a high-quality cinematic video scene, action-oriented setup with energetic motion and intensity"
-        },
-        {
-          "key": "atmospheric",
-          "ru": "Атмосферная сцена",
-          "en": "a high-quality cinematic video scene, slow atmospheric visuals, mood-driven motion and pacing"
-        },
-        {
-          "key": "product_motion",
-          "ru": "Предметная сцена с движением",
-          "en": "a high-quality cinematic video scene, product-focused framing with controlled camera motion and clean presentation"
-        }
+        { "key": "base_none", "ru": "Без исходного кадра", "en": "generate the video freely without any predefined starting frame" },
+        { "key": "base_generated", "ru": "Кадр генерируется ИИ", "en": "generate an initial frame internally before animating the scene" },
+        { "key": "base_reference_frame", "ru": "Референсный кадр", "en": "use the starting frame strictly as a visual reference without copying it exactly" },
+        { "key": "base_portrait_frame", "ru": "Портретный кадр", "en": "the video starts from a single static portrait frame" },
+        { "key": "base_full_body_frame", "ru": "Кадр в полный рост", "en": "the video starts from a single static full-body frame" },
+        { "key": "base_product_frame", "ru": "Предметный кадр", "en": "the video starts from a single static product frame" },
+        { "key": "base_scene_frame", "ru": "Сценовый кадр", "en": "the video starts from a single static scene frame" },
+        { "key": "base_closeup_frame", "ru": "Крупный план", "en": "the video starts from a close-up static frame with strong subject emphasis" },
+        { "key": "base_wide_frame", "ru": "Общий план", "en": "the video starts from a wide static frame showing the full scene" }
       ]
     },
-
     {
-      "key": "action",
-      "labelRu": "Сюжет и движение",
+      "key": "motion_target",
+      "labelRu": "Что движется",
       "default": "__none",
       "options": [
         { "key": "__none", "ru": "Выбрать", "en": "" },
-
-        {
-          "key": "subtle_motion",
-          "ru": "Лёгкое движение",
-          "en": "a high-quality cinematic video scene, subtle natural movement, minimal motion, calm visual flow"
-        },
-        {
-          "key": "continuous_motion",
-          "ru": "Непрерывное движение",
-          "en": "a high-quality cinematic video scene, continuous smooth motion over time, seamless visual flow"
-        },
-        {
-          "key": "dynamic_action",
-          "ru": "Активное действие",
-          "en": "a high-quality cinematic video scene, dynamic action with energetic movement and clear motion direction"
-        },
-        {
-          "key": "slow_motion",
-          "ru": "Замедленное движение",
-          "en": "a high-quality cinematic video scene, slow motion effect with smooth temporal pacing"
-        },
-        {
-          "key": "loopable",
-          "ru": "Зацикленное движение",
-          "en": "a high-quality cinematic video scene, loopable motion with seamless start and end transition"
-        }
+        { "key": "motion_subject_only", "ru": "Только объект", "en": "only the main subject moves while the rest of the frame remains static" },
+        { "key": "motion_background_only", "ru": "Только фон", "en": "only background elements move while the subject stays static" },
+        { "key": "motion_subject_and_background", "ru": "Объект и фон", "en": "both subject and background show controlled motion" },
+        { "key": "motion_environment_elements", "ru": "Окружение", "en": "environmental elements such as light, particles or atmosphere move subtly" },
+        { "key": "motion_secondary_elements", "ru": "Вторичные элементы", "en": "secondary elements move while the main subject remains mostly static" },
+        { "key": "motion_light_only", "ru": "Только свет", "en": "only lighting intensity, direction or glow changes over time" },
+        { "key": "motion_particles_only", "ru": "Частицы", "en": "only particles like dust, smoke, fog, sparks or rain are animated" },
+        { "key": "motion_clothing_hair", "ru": "Одежда и волосы", "en": "only hair, fabric or small details exhibit natural motion" },
+        { "key": "motion_all_elements", "ru": "Всё в движении", "en": "all elements of the scene move in a controlled coordinated way" }
       ]
     },
     {
-  "key": "composition",
-  "labelRu": "Композиция",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-
+      "key": "motion_type",
+      "labelRu": "Тип движения",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        { "key": "motion_idle", "ru": "Почти статично", "en": "almost static with barely noticeable movement" },
+        { "key": "motion_micro", "ru": "Микродвижения", "en": "very subtle micro-movements such as breathing or blinking" },
+        { "key": "motion_slow", "ru": "Медленное", "en": "slow smooth motion developing gently over time" },
+        { "key": "motion_medium", "ru": "Умеренное", "en": "moderate motion with calm direction" },
+        { "key": "motion_dynamic", "ru": "Динамичное", "en": "energetic motion with clear direction and momentum" },
+        { "key": "motion_impulse", "ru": "Импульсное", "en": "short bursts of motion followed by calm pauses" },
+        { "key": "motion_inertial", "ru": "Инерционное", "en": "motion influenced by inertia, smooth acceleration and deceleration" },
+        { "key": "motion_gravity", "ru": "Под действием гравитации", "en": "motion behaves as if affected by gravity and weight" },
+        { "key": "motion_wave", "ru": "Волнообразное", "en": "continuous wave-like motion flowing across the scene" },
+        { "key": "motion_pulsing", "ru": "Пульсирующее", "en": "rhythmic pulsing motion without large displacement" },
+        { "key": "motion_breathing", "ru": "Дыхание сцены", "en": "subtle breathing-like expansion and contraction of the scene" },
+        { "key": "motion_chaotic", "ru": "Хаотичное", "en": "unpredictable chaotic motion with organic variation" }
+      ]
+    }    ,
     {
-      "key": "close_up",
-      "ru": "Крупный план",
-      "en": "a high-quality cinematic video scene, close-up framing with subtle depth and focused subject presence"
+      "key": "motion_style",
+      "labelRu": "Характер движения",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        { "key": "motion_style_natural", "ru": "Естественное", "en": "natural realistic motion without exaggeration or stylization" },
+        { "key": "motion_style_cinematic", "ru": "Кинематографичное", "en": "cinematic motion with controlled pacing, rhythm and visual weight" },
+        { "key": "motion_style_stylized", "ru": "Стилизованное", "en": "stylized motion with intentional artistic emphasis and abstraction" },
+        { "key": "motion_style_dreamlike", "ru": "Сновидческое", "en": "dreamlike motion with soft transitions and surreal floating feeling" },
+        { "key": "motion_style_graphic", "ru": "Графичное", "en": "clean graphic motion with precise minimal animation and sharp transitions" },
+        { "key": "motion_style_organic", "ru": "Органичное", "en": "organic fluid motion inspired by natural forms and flow" },
+        { "key": "motion_style_mechanical", "ru": "Механическое", "en": "mechanical rigid motion with strict timing and repeatable patterns" },
+        { "key": "motion_style_ambient", "ru": "Фоновое", "en": "ambient motion that supports atmosphere without drawing focus" },
+        { "key": "motion_style_physical", "ru": "Физическое", "en": "motion obeys physical rules such as mass, force and resistance" },
+        { "key": "motion_style_surreal", "ru": "Сюрреалистичное", "en": "surreal motion defying real-world logic and expectations" },
+        { "key": "motion_style_rhythmic", "ru": "Ритмичное", "en": "motion synchronized to an internal rhythm or beat" }
+      ]
     },
     {
-      "key": "medium",
-      "ru": "Средний план",
-      "en": "a high-quality cinematic video scene, medium shot composition balancing subject and environment"
+      "key": "camera_motion",
+      "labelRu": "Движение взгляда (доп)",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        { "key": "camera_static", "ru": "Без движения", "en": "the viewpoint remains static throughout the video" },
+        { "key": "camera_slow_push_in", "ru": "Лёгкий наезд", "en": "a subtle slow push-in movement toward the subject" },
+        { "key": "camera_slow_pull_back", "ru": "Лёгкий отъезд", "en": "a subtle slow pull-back movement away from the subject" },
+        { "key": "camera_slow_pan", "ru": "Медленный пан", "en": "a gentle slow horizontal pan movement" },
+        { "key": "camera_slow_tilt", "ru": "Медленный наклон", "en": "a gentle slow vertical tilt movement" },
+        { "key": "camera_orbit_soft", "ru": "Мягкий облет", "en": "a very soft orbital camera movement around the subject" },
+        { "key": "camera_handheld_soft", "ru": "Лёгкий handheld", "en": "subtle handheld-like motion adding organic imperfection" },
+        { "key": "camera_drift", "ru": "Дрейф", "en": "slow drifting camera movement without a fixed direction" },
+        { "key": "camera_parallax", "ru": "Параллакс", "en": "subtle parallax effect between foreground and background layers" }
+      ]
     },
     {
-      "key": "full_body",
-      "ru": "В полный рост",
-      "en": "a high-quality cinematic video scene, full body framing with natural spatial awareness"
+      "key": "temporal_behavior",
+      "labelRu": "Поведение во времени",
+      "default": "__none",
+      "options": [
+        { "key": "__none", "ru": "Выбрать", "en": "" },
+        { "key": "time_linear_progression", "ru": "Линейное развитие", "en": "motion evolves linearly over time without repetition" },
+        { "key": "time_soft_loop", "ru": "Мягкий цикл", "en": "motion is designed to feel seamless and loopable if the model supports it" },
+        { "key": "time_ambient_motion", "ru": "Фоновое", "en": "ambient motion without a clear start or end point" },
+        { "key": "time_ramp_up", "ru": "Нарастание", "en": "motion gradually increases in intensity over time" },
+        { "key": "time_ramp_down", "ru": "Затухание", "en": "motion gradually decreases in intensity over time" },
+        { "key": "time_pulse_cycle", "ru": "Цикл с пульсом", "en": "motion follows a repeating pulse-like cycle" },
+        { "key": "time_irregular", "ru": "Нерегулярное", "en": "motion timing varies unpredictably in an organic way" },
+        { "key": "time_reverse_hint", "ru": "Намёк на реверс", "en": "motion subtly suggests reversal without fully playing backward" }
+      ]
     },
     {
-      "key": "wide",
-      "ru": "Общий план",
-      "en": "a high-quality cinematic video scene, wide shot composition emphasizing space and scale"
-    },
-    {
-      "key": "centered",
-      "ru": "Центрированная",
-      "en": "a high-quality cinematic video scene, centered composition with stable visual balance"
-    },
-    {
-      "key": "rule_of_thirds",
-      "ru": "Правило третей",
-      "en": "a high-quality cinematic video scene, rule of thirds composition creating dynamic visual balance"
-    },
-    {
-      "key": "negative_space",
-      "ru": "Много воздуха",
-      "en": "a high-quality cinematic video scene, large negative space allowing calm pacing and visual breathing room"
+      "key": "quality_constraints",
+      "labelRu": "Ограничения",
+      "default": "__none",
+      "type": "checkbox",
+      "options": [
+        { "key": "constraint_preserve_identity", "ru": "Сохранить внешний вид", "en": "preserve the original subject identity and appearance" },
+        { "key": "constraint_no_shape_change", "ru": "Без изменения формы", "en": "do not change shapes or proportions from the initial frame" },
+        { "key": "constraint_no_style_shift", "ru": "Без смены стиля", "en": "do not introduce style shifts during the video" },
+        { "key": "constraint_no_flicker", "ru": "Без мерцаний", "en": "avoid flickering jittering or unstable frames" },
+        { "key": "constraint_temporal_consistency", "ru": "Временная стабильность", "en": "maintain consistent structure and details across frames" },
+        { "key": "constraint_no_artifacts", "ru": "Без артефактов", "en": "avoid visual artifacts or glitches" },
+        { "key": "constraint_clean_edges", "ru": "Чистые края", "en": "avoid edge distortion or edge noise during motion" },
+        { "key": "constraint_stable_background", "ru": "Стабильный фон", "en": "keep background structure stable over time" }
+      ]
     }
-  ]
-},
-{
-  "key": "perspective",
-  "labelRu": "Ракурс и перспектива",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-
-    {
-      "key": "static_camera",
-      "ru": "Статичная камера",
-      "en": "a high-quality cinematic video scene, static camera from a fixed starting frame, no camera movement"
-    },
-    {
-      "key": "slow_pan",
-      "ru": "Медленный панорамный проезд",
-      "en": "a high-quality cinematic video scene, slow cinematic camera pan with smooth continuous motion"
-    },
-    {
-      "key": "dolly_in",
-      "ru": "Плавный наезд камеры",
-      "en": "a high-quality cinematic video scene, smooth dolly-in camera movement gradually approaching the subject"
-    },
-    {
-      "key": "dolly_out",
-      "ru": "Плавный отъезд камеры",
-      "en": "a high-quality cinematic video scene, smooth dolly-out camera movement slowly revealing the scene"
-    },
-    {
-      "key": "orbit",
-      "ru": "Облёт вокруг объекта",
-      "en": "a high-quality cinematic video scene, slow orbiting camera movement around the subject"
-    },
-    {
-      "key": "handheld",
-      "ru": "Ручная камера",
-      "en": "a high-quality cinematic video scene, handheld camera motion with subtle natural shake"
-    },
-    {
-      "key": "top_down_motion",
-      "ru": "Сверху с движением",
-      "en": "a high-quality cinematic video scene, top-down camera view with gentle motion over time"
-    }
-  ]
-},
-{
-  "key": "lighting",
-  "labelRu": "Свет",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-
-    {
-      "key": "soft_natural",
-      "ru": "Мягкий естественный",
-      "en": "a high-quality cinematic video scene, soft natural lighting with smooth temporal light consistency"
-    },
-    {
-      "key": "dramatic_light",
-      "ru": "Драматичный",
-      "en": "a high-quality cinematic video scene, dramatic lighting with strong contrast and evolving shadows"
-    },
-    {
-      "key": "backlight",
-      "ru": "Контровой",
-      "en": "a high-quality cinematic video scene, backlighting creating glowing edges and depth"
-    },
-    {
-      "key": "neon",
-      "ru": "Неоновый",
-      "en": "a high-quality cinematic video scene, neon lighting with vibrant artificial colors and futuristic mood"
-    },
-    {
-      "key": "golden_hour",
-      "ru": "Золотой час",
-      "en": "a high-quality cinematic video scene, golden hour lighting with warm tones and cinematic softness"
-    }
-  ]
-},
-{
-  "key": "environment",
-  "labelRu": "Окружение и фон",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-
-    {
-      "key": "studio",
-      "ru": "Студийный фон",
-      "en": "a high-quality cinematic video scene, clean studio background with controlled spatial depth"
-    },
-    {
-      "key": "minimal",
-      "ru": "Минималистичный фон",
-      "en": "a high-quality cinematic video scene, minimal background with simple shapes and calm visual space"
-    },
-    {
-      "key": "urban",
-      "ru": "Городская среда",
-      "en": "a high-quality cinematic video scene, urban environment with depth, movement, and city atmosphere"
-    },
-    {
-      "key": "interior",
-      "ru": "Интерьер",
-      "en": "a high-quality cinematic video scene, interior environment with realistic spatial continuity"
-    },
-    {
-      "key": "nature",
-      "ru": "Природа",
-      "en": "a high-quality cinematic video scene, natural environment with organic motion and depth"
-    },
-    {
-      "key": "night_city",
-      "ru": "Ночной город",
-      "en": "a high-quality cinematic video scene, night city environment with artificial lights and cinematic mood"
-    },
-    {
-      "key": "abstract",
-      "ru": "Абстрактный фон",
-      "en": "a high-quality cinematic video scene, abstract environment with non-literal visual forms"
-    }
-  ]
-},
-{
-  "key": "style",
-  "labelRu": "Визуальный стиль",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-
-    {
-      "key": "cinematic",
-      "ru": "Кинематографичный",
-      "en": "a high-quality cinematic video scene, cinematic style with film-like color grading and visual rhythm"
-    },
-    {
-      "key": "photorealistic",
-      "ru": "Фотореализм",
-      "en": "a high-quality cinematic video scene, photorealistic rendering with lifelike textures and motion realism"
-    },
-    {
-      "key": "editorial",
-      "ru": "Редакционный",
-      "en": "a high-quality cinematic video scene, editorial visual style with polished composition and pacing"
-    },
-    {
-      "key": "illustration",
-      "ru": "Иллюстрация",
-      "en": "a high-quality cinematic video scene, illustrative style with stylized motion and artistic visuals"
-    },
-    {
-      "key": "anime",
-      "ru": "Аниме",
-      "en": "a high-quality cinematic video scene, anime-inspired style with expressive motion and stylized timing"
-    },
-    {
-      "key": "three_d",
-      "ru": "3D-рендер",
-      "en": "a high-quality cinematic video scene, 3D render style with volumetric lighting and smooth camera motion"
-    },
-    {
-      "key": "cgi",
-      "ru": "CGI",
-      "en": "a high-quality cinematic video scene, CGI visuals with high-end effects and cinematic animation"
-    },
-    {
-      "key": "pixel",
-      "ru": "Пиксель-арт",
-      "en": "a high-quality cinematic video scene, pixel art style with animated retro digital aesthetics"
-    }
-  ]
-},
-{
-  "key": "mood",
-  "labelRu": "Цвет и атмосфера",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-
-    {
-      "key": "warm",
-      "ru": "Тёплая",
-      "en": "a high-quality cinematic video scene, warm color palette with smooth tonal transitions"
-    },
-    {
-      "key": "cold",
-      "ru": "Холодная",
-      "en": "a high-quality cinematic video scene, cold color palette with restrained emotional tone"
-    },
-    {
-      "key": "dark",
-      "ru": "Мрачная",
-      "en": "a high-quality cinematic video scene, dark moody atmosphere with low light and deep shadows"
-    },
-    {
-      "key": "bright",
-      "ru": "Яркая",
-      "en": "a high-quality cinematic video scene, bright vivid colors with energetic emotional impact"
-    },
-    {
-      "key": "muted",
-      "ru": "Приглушённая",
-      "en": "a high-quality cinematic video scene, muted color palette with subtle emotional restraint"
-    },
-    {
-      "key": "pastel",
-      "ru": "Пастельная",
-      "en": "a high-quality cinematic video scene, pastel tones with soft gradients and gentle atmosphere"
-    }
-  ]
-},
-{
-  "key": "quality",
-  "labelRu": "Качество и проработка",
-  "default": "__none",
-  "options": [
-    { "key": "__none", "ru": "Выбрать", "en": "" },
-
-    {
-      "key": "smooth_motion",
-      "ru": "Плавное движение",
-      "en": "a high-quality cinematic video scene, smooth motion with stable frame-to-frame continuity"
-    },
-    {
-      "key": "high_detail",
-      "ru": "Высокая детализация",
-      "en": "a high-quality cinematic video scene, high level of detail with clean textures and motion clarity"
-    },
-    {
-      "key": "professional",
-      "ru": "Профессиональный уровень",
-      "en": "a high-quality cinematic video scene, professional-grade visuals with balanced motion and composition"
-    },
-    {
-      "key": "high_resolution",
-      "ru": "Высокое разрешение",
-      "en": "a high-quality cinematic video scene, high-resolution output with clean edges and no artifacts"
-    },
-    {
-      "key": "natural_colors",
-      "ru": "Естественные цвета",
-      "en": "a high-quality cinematic video scene, natural color grading with realistic tonal balance"
-    }
-  ]
-}
-
-
   ]
 }

@@ -56,7 +56,10 @@ function back() {
 function render() {
   root!.innerHTML = "";
 
+  console.log("RENDER CURRENT:", current);
+
   switch (current.name) {
+
     case "instruction":
       renderInstruction(root!, navigate);
       break;
@@ -109,3 +112,4 @@ export function startApp() {
 
   render();
 }
+

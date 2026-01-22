@@ -194,7 +194,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* CTA spacing (Copy button) */
 .btn.green.btn.full {
-  margin-bottom: 84px;
+  margin-bottom: 16px;
 }
 
 /* -------------------------
@@ -247,6 +247,58 @@ h1, h2, h3, h4, h5, h6 {
 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
+
+/* -------------------------
+   Template detail — Recommendations
+------------------------- */
+
+.template-detail .template-meta .meta-item {
+  font-size: 13px;        /* ↓ было 14 */
+  line-height: 1.45;
+  color: var(--text-main);
+  opacity: 0.7;           /* ↓ ключевое */
+}
+
+.template-detail .template-meta .meta-item strong {
+  font-weight: 500;
+}
+
+/* -------------------------
+   Template detail — Description (lead)
+------------------------- */
+
+.template-detail .template-description {
+  margin-top: 10px;
+
+  font-size: 15px;        /* ↑ визуально больше рекомендаций */
+  line-height: 1.55;
+
+  font-weight: 400;
+  color: var(--text-main);
+  opacity: 0.98;           /* ↑ ключевое */
+}
+
+/* sourceHint — индивидуальная рекомендация */
+.template-detail .template-meta .meta-hint {
+  margin-top: 8px;
+  padding: 10px 12px;
+
+  font-size: 13px;
+  line-height: 1.45;
+
+  color: var(--text-main);
+  opacity: 0.85;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+
+.template-detail .template-meta .meta-hint::before {
+  content: "Рекомендация: ";
+  font-weight: 600;
+}
+
 
 /* Ad card */
 .card.ad {
@@ -374,6 +426,10 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
+.screen h1 {
+  margin-bottom: 16px;
+}
+
 /* One-line actions (photo / video) */
 .actions {
   display: flex;
@@ -385,8 +441,50 @@ h1, h2, h3, h4, h5, h6 {
   flex: 1;
 }
 
+/* =================================================
+   GRID (Templates list)
+   Правило: квадрат, полностью заполнен картинкой
+   Фото подгоняется под бокс
+================================================= */
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.template-card {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.template-card:active {
+  transform: scale(0.97);
+}
+
+.template-preview {
+  width: 100%;
+  aspect-ratio: 1 / 1;            /* всегда квадрат */
+  border-radius: 10px;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;         /* заполнить квадрат */
+
+  background-color: rgba(0, 0, 0, 0.04);
+
+  margin-bottom: 6px;
+}
+
+.template-title {
+  font-size: 12px;
+  text-align: center;
+  color: var(--text-main);
+}
+
+
 /* -------------------------
-   Templates list
+   Templates list (GRID)
 ------------------------- */
 
 .template-grid {
@@ -408,15 +506,20 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 10px;
+  overflow: hidden;
 
-  background: rgba(0, 0, 0, 0.04);
+  background-color: rgba(0, 0, 0, 0.04);
+
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
+/* если используется background-image */
+.template-preview {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .template-title {
@@ -426,19 +529,44 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* -------------------------
-   Template detail
+   Template detail (CARD)
 ------------------------- */
 
+/* контейнер превью — БЕЗ aspect-ratio */
 .card.preview {
-  aspect-ratio: 1 / 1;
-
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
-  font-size: 14px;
-  color: var(--text-muted);
+  background: transparent;
+  padding: 0;
 }
+
+/* если используется <img> (ПРАВИЛЬНЫЙ вариант) */
+.card.preview img {
+  display: block;
+
+  max-width: 512px;
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+  border-radius: 12px;
+
+  margin: 0 auto;
+}
+
+/* если всё ещё background-image (допустимо, но хуже) */
+.card.preview {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* -------------------------
+   Info
+------------------------- */
 
 .template-info h3 {
   margin: 0 0 8px;
@@ -450,6 +578,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-main);
   opacity: 0.85;
 }
+
 
 /* -------------------------
    History screen

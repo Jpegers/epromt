@@ -1,25 +1,18 @@
 {
   "items": [
     {
-      "id": "cinematic_video",
-      "titleRu": "Кинематографичное видео",
-      "descriptionRu": "Драматичный видеокадр с ощущением кино, плавным движением камеры и атмосферным светом.",
-      "preview": "https://images.unsplash.com/photo-1517602302552-471fe67acf66",
-      "promptEn": "cinematic video scene, dramatic lighting, smooth camera movement, film look, high quality"
-    },
-    {
-      "id": "lifestyle_video",
-      "titleRu": "Лайфстайл видео",
-      "descriptionRu": "Живое видео с естественным движением, повседневной атмосферой и реалистичным светом.",
-      "preview": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-      "promptEn": "lifestyle video, natural movement, realistic environment, candid moment"
-    },
-    {
-      "id": "abstract_video",
-      "titleRu": "Абстрактное видео",
-      "descriptionRu": "Художественное видео с акцентом на форму, цвет и движение.",
-      "preview": "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-      "promptEn": "abstract video, artistic motion, creative composition, smooth animation"
+      "id": "cinematic_start_to_end",
+      "titleRu": "Кинематографичный переход между кадрами",
+      "descriptionRu": "Плавный кинематографичный переход между начальным и конечным изображением с ощущением движения камеры.",
+      "preview": "/previews/video/cinematic-transition.webp",
+      "promptEn": "cinematic transition between two frames, smooth camera movement, dramatic lighting, film look",
+      "meta": {
+        "input": "start_end_frame",
+        "format": "horizontal",
+        "difficulty": "medium",
+        "cameraMotion": "slow_motion",
+        "sceneMotion": "camera_motion"
+      }
     }
   ]
 }

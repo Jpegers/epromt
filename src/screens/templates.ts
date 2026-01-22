@@ -11,6 +11,15 @@ type TemplateItem = {
   promptEn: string;
 };
 
+function resolvePreviewUrl(
+  mode: "photo" | "video",
+  item: TemplateItem
+): string {
+  // Источник истины — id шаблона
+  // Файлы лежат в public/previews/photo/<id>.webp
+  return `previews/${mode}/${item.id}.webp`;
+}
+
 export function renderTemplates(
   root: HTMLElement,
   navigate: (screen: any) => void,
@@ -22,9 +31,7 @@ export function renderTemplates(
   // ===== Header =====
   root.appendChild(
     renderHeader(
-      mode === "photo"
-        ? "Шаблоны — Фото"
-        : "Шаблоны — Видео",
+      mode === "photo" ? "Шаблоны — Фото" : "Шаблоны — Видео",
       back
     )
   );
@@ -53,7 +60,10 @@ export function renderTemplates(
 
     const preview = document.createElement("div");
     preview.className = "template-preview";
-    preview.style.backgroundImage = `url(${item.preview})`;
+    preview.style.backgroundImage = `url(${resolvePreviewUrl(
+      mode,
+      item
+    )})`;
 
     const title = document.createElement("div");
     title.className = "template-title";

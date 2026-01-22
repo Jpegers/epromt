@@ -1,25 +1,122 @@
 {
   "items": [
-    {
-      "id": "portrait_photo",
-      "titleRu": "Портретная фотография",
-      "descriptionRu": "Классический портрет с акцентом на лицо, свет и детализацию.",
-      "preview": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
-      "promptEn": "photorealistic portrait, soft natural light, 85mm lens, high detail, professional photography"
-    },
-    {
-      "id": "cinematic_photo",
-      "titleRu": "Кинематографичный кадр",
-      "descriptionRu": "Художественный кадр с драматическим светом и атмосферой кино.",
-      "preview": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
-      "promptEn": "cinematic shot, dramatic lighting, shallow depth of field, film look, high quality"
-    },
-    {
-      "id": "lifestyle_photo",
-      "titleRu": "Лайфстайл сцена",
-      "descriptionRu": "Живой повседневный кадр в естественной обстановке.",
-      "preview": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-      "promptEn": "lifestyle photography, natural environment, candid moment, realistic lighting"
+  {
+    "id": "night_flash_street_portrait",
+    "titleRu": "Ночной уличный портрет со вспышкой",
+    "descriptionRu": "Реалистичный ночной портрет в уличной среде с прямой вспышкой смартфона и ощущением случайного кадра.",
+    "preview": "previews/photo/night-flash-street.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a natural night-time smartphone flash portrait outdoors, candid framing, neutral facial expression, [тип одежды] in dark tones, realistic direct flash lighting, sharp focus, authentic night street atmosphere, no cinematic grading, no artificial blur",
+    "meta": {
+      "input": "one_photo",
+      "format": "any",
+      "difficulty": "medium",
+      "sourceHint": "Лучше использовать чёткое фронтальное фото лица."
     }
-  ]
+  },
+  {
+    "id": "night_riverside_motion",
+    "titleRu": "Ночной кадр у дороги с движением",
+    "descriptionRu": "Натуральный ночной кадр рядом с дорогой, с ощущением движения и живой городской среды.",
+    "preview": "previews/photo/night-riverside-motion.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a natural smartphone night photo near [описание локации], subject standing still while cars pass in the background, realistic motion blur on moving vehicles only, sharp subject, dark oversized outerwear, direct smartphone flash lighting, clean and authentic urban night mood",
+    "meta": {
+      "input": "one_photo",
+      "format": "any",
+      "difficulty": "hard",
+      "sourceHint": "Подходит фото лица без сильного наклона головы."
+    }
+  },
+  {
+    "id": "fitting_room_mirror_selfie",
+    "titleRu": "Зеркальное селфи в примерочной",
+    "descriptionRu": "Минималистичное зеркальное селфи в примерочной с акцентом на образ и повседневную моду.",
+    "preview": "previews/photo/fitting-room-mirror.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a smartphone mirror selfie in a fitting room, clean interior, neutral lighting, wearing [тип одежды] in black tones, casual accessories, natural posture, unfiltered realistic look, no background blur",
+    "meta": {
+      "input": "one_photo",
+      "format": "vertical",
+      "difficulty": "easy",
+      "sourceHint": "Желательно фото лица без очков."
+    }
+  },
+  {
+    "id": "escalator_candid",
+    "titleRu": "Естественный кадр на эскалаторе",
+    "descriptionRu": "Случайный городской кадр на эскалаторе с ощущением повседневной динамики.",
+    "preview": "previews/photo/escalator-candid.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a natural smartphone candid on an escalator, slight over-the-shoulder angle, realistic indoor lighting, wearing dark casual outerwear and glasses, sharp focus, no artificial blur, everyday urban atmosphere",
+    "meta": {
+      "input": "one_photo",
+      "format": "any",
+      "difficulty": "medium",
+      "sourceHint": "Лучше фото с нейтральным выражением лица."
+    }
+  },
+  {
+    "id": "daylight_sidewalk_candid",
+    "titleRu": "Дневной уличный боковой портрет",
+    "descriptionRu": "Натуральный дневной кадр в движении с мягким естественным светом.",
+    "preview": "previews/photo/daylight-sidewalk.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a natural side-view candid shot of walking outdoors, soft daylight, gentle hair movement from breeze, casual urban clothing, realistic colors, no stylization, authentic street photography feel",
+    "meta": {
+      "input": "one_photo",
+      "format": "any",
+      "difficulty": "easy",
+      "sourceHint": "Подходит фото лица при естественном освещении."
+    }
+  },
+  {
+    "id": "elevator_flash_portrait",
+    "titleRu": "Портрет во лифте со вспышкой",
+    "descriptionRu": "Интимный портрет во лифте с прямой вспышкой и бытовой атмосферой.",
+    "preview": "previews/photo/elevator-flash.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a smartphone flash portrait inside an elevator, subject standing close to [описание интерьера], direct harsh flash lighting, natural skin tones, subtle handheld camera feel, sharp realistic image, no artificial blur",
+    "meta": {
+      "input": "one_photo",
+      "format": "vertical",
+      "difficulty": "medium",
+      "sourceHint": "Лучше использовать фото лица без сильных теней."
+    }
+  },
+  {
+    "id": "car_backseat_selfie",
+    "titleRu": "Селфи на заднем сиденье автомобиля",
+    "descriptionRu": "Естественное автомобильное селфи с дневным светом и расслабленным настроением.",
+    "preview": "previews/photo/car-backseat.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a natural smartphone car selfie from the backseat, low slightly upward angle, bright daylight entering from side window, wearing [тип одежды] with hood or layered outerwear, candid unfiltered atmosphere, sharp focus",
+    "meta": {
+      "input": "one_photo",
+      "format": "any",
+      "difficulty": "medium",
+      "sourceHint": "Хорошо работает с нейтральным портретом лица."
+    }
+  },
+  {
+    "id": "bathroom_flash_mirror",
+    "titleRu": "Зеркальное селфи в ванной со вспышкой",
+    "descriptionRu": "Чистое и простое зеркальное селфи с прямой вспышкой и минимализмом.",
+    "preview": "previews/photo/bathroom-mirror-flash.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a natural smartphone mirror selfie with direct flash, clean bathroom interior, no background blur, minimal styling, wearing dark casual clothing, realistic unfiltered look",
+    "meta": {
+      "input": "one_photo",
+      "format": "vertical",
+      "difficulty": "easy",
+      "sourceHint": "Подходит любое чёткое фото лица."
+    }
+  },
+  {
+    "id": "studio_backstage_moment",
+    "titleRu": "Закулисье студийной съёмки",
+    "descriptionRu": "Документальный backstage-кадр с ощущением рабочего процесса в студии.",
+    "preview": "previews/photo/studio-backstage.webp",
+    "promptEn": "use the attached face image as the exact identity reference, create a backstage studio photoshoot moment, subject adjusting hair under studio lights, side angle, visible equipment and monitor in background showing an editorial-style portrait, natural documentary feel, no stylization",
+    "meta": {
+      "input": "one_photo",
+      "format": "any",
+      "difficulty": "hard",
+      "sourceHint": "Лучше использовать портрет без экстремальных ракурсов."
+    }
+  }
+]
+
 }
