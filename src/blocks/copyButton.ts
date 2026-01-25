@@ -5,6 +5,7 @@ import {
   subscribeCopyCooldown,
 } from "./copyCooldown";
 import { addHistory } from "./historyStore";
+import { showAdModal } from "./adModal";
 
 type Source = "build" | "template" | "history";
 
@@ -96,6 +97,9 @@ export function createCopyButton(
       }
 
       startCopyCooldown(DEFAULT_DURATION_MS);
+
+      // ✅ РЕАЛЬНЫЙ ТРИГГЕР ПОКАЗА МОДАЛКИ
+      showAdModal();
     } catch {
       /* silent */
     }

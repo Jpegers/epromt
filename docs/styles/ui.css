@@ -1,0 +1,353 @@
+/* =========================================================
+   UI KIT / BLOCKS
+   Header, Buttons, Cards, Forms, Modal
+========================================================= */
+
+/* -------------------------
+   Header
+------------------------- */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  padding: 14px 16px;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.app-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.app-header.menu-header .header-title {
+  font-size: 24px;
+}
+
+/* Back button */
+.back-button {
+  width: 32px;
+  height: 32px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+
+  background: var(--bg-card);
+  color: var(--text-main);
+
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.back-button:active {
+  transform: scale(0.96);
+}
+
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* -------------------------
+   Buttons
+------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 44px;
+  padding: 0 16px;
+
+  border-radius: 12px;
+  border: none;
+
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+
+  background: #e5e7eb;
+  color: #111;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn.full {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Primary CTA */
+.btn.green {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.btn.green:hover {
+  background: #0ea371;
+}
+
+/* CTA spacing (Copy button) */
+.btn.green.btn.full {
+  margin-bottom: 16px;
+}
+
+.btn.gray {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.gray::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: calc(var(--progress, 0) * 100%);
+  background-color: rgba(0, 0, 0, 0.07);
+  transition: width 0.1s linear;
+}
+
+
+/* -------------------------
+   Secondary buttons
+------------------------- */
+
+.btn.secondary {
+  height: 40px;
+  padding: 0 14px;
+
+  border-radius: 12px;
+  border: 1px solid var(--border-soft);
+
+  background: var(--bg-card);
+  color: var(--text-main);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  cursor: pointer;
+}
+
+.btn.secondary:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.btn.secondary:active {
+  transform: scale(0.97);
+}
+
+/* -------------------------
+   Cards (unified surface)
+------------------------- */
+
+.card,
+.template-card,
+.history-item,
+.modal {
+  background: var(--bg-card);
+  border-radius: 16px;
+}
+
+.card {
+  padding: 16px;
+  margin-bottom: 16px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* =================================================
+   ACTION BUTTONS (Copy button unified)
+================================================= */
+
+.btn.copy {
+  width: 100%;
+  height: 44px;
+  border-radius: 14px;
+
+  background: #10b981;
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  border: none;
+  cursor: pointer;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.copy:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.btn.copy:active {
+  transform: scale(0.97);
+}
+
+/* cooldown progress */
+.btn.copy.copied::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(255,255,255,0.25);
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+  transition: transform 0.2s linear;
+}
+
+
+/* =================================================
+   AD BANNER (single source of truth)
+================================================= */
+
+.card.ad {
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+
+  padding: 8px 12px;
+  box-sizing: border-box;
+
+  border-radius: 16px;
+
+  color: #065f46;
+  cursor: pointer;
+  text-decoration: none;
+
+  overflow: hidden;
+}
+
+.card.ad:hover {
+  transform: scale(0.99)
+}
+
+/* image */
+.card.ad img {
+  height: 100%;
+  width: auto;
+  max-width: 96px;
+
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* text */
+.card.ad p {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.3;
+
+  max-width: 90%;
+  text-align: center;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+
+/* -------------------------
+   Forms
+------------------------- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.field label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.field select {
+  height: 42px;
+  padding: 0 12px;
+
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+
+  font-size: 14px;
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+/* -------------------------
+   Icon buttons
+------------------------- */
+
+.icon-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+
+  background: var(--bg-card);
+  color: var(--text-main);
+
+  cursor: pointer;
+}
+
+/* -------------------------
+   Modal (surface only)
+------------------------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  padding: 20px;
+  max-width: 320px;
+  width: calc(100% - 32px);
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal p {
+  color: var(--text-muted);
+}

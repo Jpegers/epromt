@@ -1,8 +1,4 @@
 {
-  "validation": {
-    "requireAtLeastOne": true,
-    "errorRu": "Выберите хотя бы один пункт"
-  },
   "order": [
     "visual_type",
     "visual_style",

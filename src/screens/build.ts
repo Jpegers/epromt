@@ -48,6 +48,13 @@ export function renderBuild(
       description: builder.getRuResult(),
     });
 
+    // ===== VALIDATION (ОТКЛЮЧЕНО) =====
+    // Ранее использовалось для показа ошибки,
+    // если не выбран ни один параметр.
+    // Сейчас UX решается через disabled-кнопку,
+    // поэтому validation-текст не нужен.
+
+    /*
     const validation = config.validation;
 
     if (validation?.requireAtLeastOne && !builder.hasSelection()) {
@@ -55,6 +62,10 @@ export function renderBuild(
     } else {
       errorEl.textContent = "";
     }
+    */
+
+    // Всегда очищаем текст ошибки
+    errorEl.textContent = "";
   }
 
   updateResult();

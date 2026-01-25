@@ -1,0 +1,401 @@
+/* -------------------------
+   Template detail — Recommendations
+------------------------- */
+
+.template-detail .template-meta .meta-item {
+  font-size: 13px;        /* ↓ было 14 */
+  line-height: 1.45;
+  color: var(--text-main);
+  opacity: 0.7;           /* ↓ ключевое */
+}
+
+.template-detail .template-meta .meta-item strong {
+  font-weight: 500;
+}
+
+/* -------------------------
+   Template detail — Description (lead)
+------------------------- */
+
+.template-detail .template-description {
+  margin-top: 10px;
+
+  font-size: 15px;        /* ↑ визуально больше рекомендаций */
+  line-height: 1.55;
+
+  font-weight: 400;
+  color: var(--text-main);
+  opacity: 0.98;           /* ↑ ключевое */
+}
+
+/* sourceHint — индивидуальная рекомендация */
+.template-detail .template-meta .meta-hint {
+  margin-top: 8px;
+  padding: 10px 12px;
+
+  font-size: 13px;
+  line-height: 1.45;
+
+  color: var(--text-main);
+  opacity: 0.85;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+
+.template-detail .template-meta .meta-hint::before {
+  content: "Рекомендация: ";
+  font-weight: 600;
+}
+
+/* =========================================================
+   SCREENS / LAYOUT
+   Screens, Grids, Page-specific rules, Responsive
+========================================================= */
+
+/* -------------------------
+   Base screen layout
+------------------------- */
+
+.screen {
+  padding: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* -------------------------
+   Menu screen
+------------------------- */
+
+.screen.menu button {
+  width: 100%;
+}
+
+.screen.menu footer {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.screen.menu .link {
+  background: transparent;
+  border: none;
+  padding: 8px;
+
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.screen h1 {
+  margin-bottom: 16px;
+}
+
+/* One-line actions (photo / video) */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0px;
+}
+
+.actions .btn {
+  flex: 1;
+}
+
+/* =================================================
+   GRID (Templates list)
+   Правило: квадрат, полностью заполнен картинкой
+   Фото подгоняется под бокс
+================================================= */
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.template-card {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.template-card:active {
+  transform: scale(0.97);
+}
+
+.template-preview {
+  width: 100%;
+  aspect-ratio: 1 / 1;            /* всегда квадрат */
+  border-radius: 10px;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;         /* заполнить квадрат */
+
+  background-color: rgba(0, 0, 0, 0.04);
+
+  margin-bottom: 6px;
+}
+
+.template-title {
+  font-size: 12px;
+  text-align: center;
+  color: var(--text-main);
+}
+
+/* -------------------------
+   Template detail (CARD)
+------------------------- */
+
+/* контейнер превью — БЕЗ aspect-ratio */
+.card.preview {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: transparent;
+  padding: 0;
+}
+
+/* <img> — фото */
+.card.preview img {
+  display: block;
+
+  max-width: 512px;
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+  border-radius: 12px;
+
+  margin: 0 auto;
+}
+
+/* <video> — ВИДЕО (ТОЧНО КАК ФОТО) */
+.card.preview video {
+  display: block;
+
+  max-width: 512px;
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+  border-radius: 12px;
+
+  margin: 0 auto;
+}
+
+/* fallback (если где-то ещё используется bg) */
+.card.preview {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* -------------------------
+   Info
+------------------------- */
+
+.template-info h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.template-info p {
+  font-size: 14px;
+  color: var(--text-main);
+  opacity: 0.85;
+}
+
+.template-card-preview {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.template-card-preview img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+
+/* -------------------------
+   History screen
+------------------------- */
+
+.screen.history {
+  padding: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.history-item {
+  padding: 14px 16px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.history-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.history-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.history-meta strong {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.history-text {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-main);
+  word-break: break-word;
+}
+
+.history-copy-btn {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+
+  background: var(--bg-card);
+  color: #10b981;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.history-copy-btn:active {
+  transform: scale(0.95);
+}
+
+.history-copy-btn:hover {
+  transform: scale(0.93)
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 32px 0;
+}
+
+.history-more {
+  margin-top: 20px;
+}
+
+.history-more button {
+  width: 100%;
+  padding: 14px;
+
+  border-radius: 16px;
+  border: none;
+
+  background: #10b981;
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.history-more button:active {
+  transform: scale(0.98);
+}
+
+/* -------------------------
+   Contacts / lists
+------------------------- */
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.contact-list a {
+  color: #10b981;
+  text-decoration: none;
+}
+
+/* -------------------------
+   Custom components / Validation
+------------------------- */
+
+/* Validation error message displayed in the builder when no parameters are selected */
+/* Center validation error above copy button */
+/* VALIDATION (ОТКЛЮЧЕНО) 
+    // Ранее использовалось для показа ошибки,
+    // если не выбран ни один параметр.
+    // Сейчас UX решается через disabled-кнопку,
+    // поэтому validation-текст не нужен.*/
+/*
+.validation-error {
+  margin: 8px 0 12px;
+  text-align: center;
+  color: #e54848;
+  font-size: 13px;
+}*/
+
+
+/* Checkbox items inside the constructor */
+.constructor .checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.constructor .checkbox-item label {
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+/* -------------------------
+   Responsive
+------------------------- */
+
+@media (max-width: 420px) {
+  .template-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
