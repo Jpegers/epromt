@@ -1,15 +1,9 @@
-/**
- * Типы под текущий JSON
- */
-
 type Option = {
   key: string;
   ru: string;
   en: string;
 };
 
-// Group supports arbitrary string "type" from JSON,
-// but special logic applies ONLY for "checkbox"
 type Group = {
   key: string;
   labelRu: string;
@@ -36,7 +30,7 @@ export function createPromptBuilder(config: BuildConfig) {
   const selects: Record<string, HTMLSelectElement> = {};
   const checkboxes: Record<string, HTMLInputElement[]> = {};
 
-  // Init defaults
+  // ===== Init defaults =====
   cfg.groups.forEach((group) => {
     if (group.type === "checkbox") {
       state[group.key] = [];
@@ -181,6 +175,22 @@ export function createPromptBuilder(config: BuildConfig) {
     root.dispatchEvent(new Event("change", { bubbles: true }));
   });
 
+  // ===== NEW: hasSelection =====
+  function hasSelection(): boolean {
+    return cfg.order.some((groupKey) => {
+      const group = cfg.groups.find((g) => g.key === groupKey);
+      if (!group) return false;
+
+      const value = state[group.key];
+
+      if (group.type === "checkbox") {
+        return (value as string[]).length > 0;
+      }
+
+      return value !== "__none";
+    });
+  }
+
   function getRuResult(): string {
     const parts: string[] = [];
 
@@ -250,6 +260,7 @@ export function createPromptBuilder(config: BuildConfig) {
     element: root,
     getRuResult,
     getEnPrompt,
+    hasSelection,
     validation: cfg.validation,
   };
 }

@@ -8,17 +8,13 @@ type TemplateItem = {
   id: string;
   titleRu: string;
   descriptionRu: string;
-  preview: string;
-  promptEn: string;
 };
 
 function resolvePreviewUrl(
   mode: "photo" | "video",
-  item: TemplateItem
+  id: string
 ): string {
-  // Источник истины — id шаблона
-  // Файлы лежат в public/previews/photo/<id>.webp
-  return `previews/${mode}/${item.id}.webp`;
+  return `previews/${mode}/${id}.webp`;
 }
 
 export function renderTemplates(
@@ -29,7 +25,6 @@ export function renderTemplates(
 ) {
   root.innerHTML = "";
 
-  // ===== Header =====
   root.appendChild(
     renderHeader(
       mode === "photo" ? "Шаблоны — Фото" : "Шаблоны — Видео",
@@ -37,11 +32,9 @@ export function renderTemplates(
     )
   );
 
-  // ===== Main =====
   const main = document.createElement("main");
   main.className = "screen templates";
 
-  // --- Grid ---
   const grid = document.createElement("section");
   grid.className = "template-grid";
 
@@ -58,7 +51,7 @@ export function renderTemplates(
     preview.className = "template-preview";
     preview.style.backgroundImage = `url(${resolvePreviewUrl(
       mode,
-      item
+      item.id
     )})`;
 
     const title = document.createElement("div");
@@ -72,15 +65,13 @@ export function renderTemplates(
       navigate({
         name: "template",
         id: item.id,
-        mode
+        mode,
       });
     });
 
     grid.appendChild(card);
   });
 
-  // ===== Append =====
-  // insert ad banner if enabled
   renderAdBanner(main);
   main.appendChild(grid);
   root.appendChild(main);

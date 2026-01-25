@@ -1,4 +1,12 @@
 import { getHistory } from "./historyStore";
+import {
+  isCopyLocked,
+  getCopyRemainingMs,
+  startCopyCooldown,
+  subscribeCopyCooldown,
+} from "./copyCooldown";
+
+const COPY_DURATION_MS = 15_000;
 
 export function renderHistory(root: HTMLElement) {
   const list = getHistory();
@@ -11,42 +19,64 @@ export function renderHistory(root: HTMLElement) {
     ${list.length === 0 ? `<p class="muted">История пуста</p>` : ""}
   `;
 
-  list.forEach((i) => {
+  list.forEach((item) => {
     const row = document.createElement("div");
     row.className = "history-item";
 
     const text = document.createElement("div");
     text.className = "history-text";
     text.innerHTML = `
-      <small>${new Date(i.date).toLocaleString()}</small>
-      <p>${i.ru}</p>
+      <small>${new Date(item.date).toLocaleString()}</small>
+      <p>${item.ru}</p>
     `;
 
     const btn = document.createElement("button");
-    btn.className = "icon-btn";
+    btn.className = "icon-btn copy";
     btn.textContent = "📋";
-    btn.title = "Скопировать промпт";
 
-    btn.onclick = async () => {
-      try {
-        await navigator.clipboard.writeText(i.en);
+    function render() {
+      if (isCopyLocked()) {
+        const remaining = getCopyRemainingMs();
+        const progress = 1 - remaining / COPY_DURATION_MS;
 
-        // UX feedback
         btn.textContent = "✔";
         btn.disabled = true;
-
-        setTimeout(() => {
-          btn.textContent = "📋";
-          btn.disabled = false;
-        }, 800);
-      } catch {
-        // ничего не делаем — тихий фейл
+        btn.classList.add("copied");
+        btn.style.setProperty("--progress", String(progress));
+      } else {
+        btn.textContent = "📋";
+        btn.disabled = false;
+        btn.classList.remove("copied");
+        btn.style.removeProperty("--progress");
       }
+    }
+
+    btn.onclick = async () => {
+      if (isCopyLocked()) return;
+
+      const value = item.en?.trim() || item.ru?.trim();
+      if (!value) return;
+
+      try {
+        await navigator.clipboard.writeText(value);
+        startCopyCooldown(COPY_DURATION_MS);
+      } catch {}
     };
+
+    const unsub = subscribeCopyCooldown(render);
+    render();
 
     row.appendChild(text);
     row.appendChild(btn);
     wrap.appendChild(row);
+
+    const observer = new MutationObserver(() => {
+      if (!btn.isConnected) {
+        unsub();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   });
 
   root.appendChild(wrap);

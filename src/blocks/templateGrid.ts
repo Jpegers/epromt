@@ -12,7 +12,6 @@ export function renderTemplateGrid(items: TemplateItem[]): string {
         .map((item) => {
           const previewUrl = "/" + item.preview.replace("{id}", item.id);
 
-
           return `
             <div class="template-card">
               <div class="template-card-preview">

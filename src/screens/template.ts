@@ -12,8 +12,6 @@ type TemplateMeta = {
   format: string;
   difficulty: string;
   sourceHint?: string;
-
-  // видео-поля, на будущее
   cameraMotion?: string;
   sceneMotion?: string;
 };
@@ -22,39 +20,26 @@ type TemplateItem = {
   id: string;
   titleRu: string;
   descriptionRu: string;
-  preview: string;
   promptEn: string;
   meta: TemplateMeta;
-  video?: string; // ← ВАЖНО
+  video?: string;
 };
 
-function resolvePreviewUrl(
-  mode: "photo" | "video",
-  item: TemplateItem
-): string {
-  const byId = `previews/${mode}/${item.id}.webp`;
-
-  if (mode === "photo") return byId;
-
-  if (item.preview && typeof item.preview === "string") return item.preview;
-  return byId;
+function getPreviewUrl(mode: "photo" | "video", id: string): string {
+  return `previews/${mode}/${id}.webp`;
 }
-
-// ===== Screen =====
 
 export function renderTemplate(
   root: HTMLElement,
-  navigate: (screen: any) => void, // intentionally unused
+  navigate: (screen: any) => void,
   back: () => void,
   id: string,
   mode: "photo" | "video"
 ) {
   root.innerHTML = "";
 
-  // ===== Header =====
   root.appendChild(renderHeader("Скопировать шаблон", back));
 
-  // ===== Data =====
   const items =
     mode === "photo"
       ? (photoTemplates.items as TemplateItem[])
@@ -63,46 +48,35 @@ export function renderTemplate(
   const template = items.find((item) => item.id === id);
 
   if (!template) {
-    const error = document.createElement("p");
-    error.textContent = "Шаблон не найден";
-    root.appendChild(error);
+    root.appendChild(document.createTextNode("Шаблон не найден"));
     return;
   }
 
-const previewUrl = template.preview.replace(
-  "{id}",
-  template.id
-);
+  const previewUrl = getPreviewUrl(mode, template.id);
 
-const videoUrl =
-  mode === "video" && template.video
-    ? template.video.replace("{id}", template.id)
-    : undefined;
+  const videoUrl =
+    mode === "video" && template.video
+      ? template.video.replace("{id}", template.id)
+      : undefined;
 
-
-  // ===== Main =====
   const main = document.createElement("main");
   main.className = "screen template";
 
-  // ===== Template detail =====
   const detail = renderTemplateDetail({
     title: template.titleRu,
     description: template.descriptionRu,
     preview: previewUrl,
     meta: template.meta,
-    video: videoUrl
+    video: videoUrl,
   });
 
-
-  // ===== Copy button =====
   const copyButton = createCopyButton({
     getEn: () => template.promptEn,
-    getRu: () => template.titleRu,
-    source: "template"
+    getRu: () => template.descriptionRu,
+    source: "template",
   });
 
-  // ===== Append =====
   main.appendChild(detail);
-  main.appendChild(copyButton);
+  main.appendChild(copyButton.element);
   root.appendChild(main);
 }

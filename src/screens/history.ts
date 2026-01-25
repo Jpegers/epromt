@@ -1,5 +1,13 @@
 import { renderHeader } from "../blocks/header";
 import { getHistory } from "../blocks/historyStore";
+import {
+  isCopyLocked,
+  getCopyRemainingMs,
+  startCopyCooldown,
+  subscribeCopyCooldown,
+} from "../blocks/copyCooldown";
+
+const COPY_DURATION_MS = 15_000;
 
 export function renderHistory(
   root: HTMLElement,
@@ -8,10 +16,8 @@ export function renderHistory(
 ) {
   root.innerHTML = "";
 
-  // ===== Header =====
   root.appendChild(renderHeader("История копирований", back));
 
-  // ===== Main =====
   const main = document.createElement("main");
   main.className = "screen history";
 
@@ -33,44 +39,63 @@ export function renderHistory(
           ? "Конструктор"
           : "Шаблон" + (item.title ? ` · ${item.title}` : "");
 
-      row.innerHTML = `
-        <div class="history-content">
-          <div class="history-meta">
-            <strong>${sourceLabel}</strong> · ${new Date(item.date).toLocaleString()}
-          </div>
-          <div class="history-text">${item.ru}</div>
+      const content = document.createElement("div");
+      content.className = "history-content";
+      content.innerHTML = `
+        <div class="history-meta">
+          <strong>${sourceLabel}</strong> · ${new Date(item.date).toLocaleString()}
         </div>
-        <button class="history-copy-btn" title="Скопировать">📋</button>
+        <div class="history-text">${item.ru}</div>
       `;
 
-      const btn = row.querySelector(
-        ".history-copy-btn"
-      ) as HTMLButtonElement;
+      const btn = document.createElement("button");
+      btn.className = "history-copy-btn copy";
+      btn.textContent = "📋";
 
-      btn.onclick = async () => {
-        try {
-          await navigator.clipboard.writeText(item.en);
+      function renderBtn() {
+        if (isCopyLocked()) {
+          const remaining = getCopyRemainingMs();
+          const progress = 1 - remaining / COPY_DURATION_MS;
 
-          // UX feedback
           btn.textContent = "✔";
           btn.disabled = true;
-
-          setTimeout(() => {
-            btn.textContent = "📋";
-            btn.disabled = false;
-          }, 800);
-        } catch {
-          // тихо игнорируем
+          btn.classList.add("copied");
+          btn.style.setProperty("--progress", String(progress));
+        } else {
+          btn.textContent = "📋";
+          btn.disabled = false;
+          btn.classList.remove("copied");
+          btn.style.removeProperty("--progress");
         }
+      }
+
+      btn.onclick = async () => {
+        if (isCopyLocked()) return;
+        try {
+          await navigator.clipboard.writeText(item.en);
+          startCopyCooldown(COPY_DURATION_MS);
+        } catch {}
       };
 
+      const unsub = subscribeCopyCooldown(renderBtn);
+      renderBtn();
+
+      const observer = new MutationObserver(() => {
+        if (!btn.isConnected) {
+          unsub();
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      row.appendChild(content);
+      row.appendChild(btn);
       listWrap.appendChild(row);
     });
   }
 
   renderList();
 
-  // ===== Load more =====
   if (history.length > visibleCount) {
     const moreWrap = document.createElement("div");
     moreWrap.className = "history-more";

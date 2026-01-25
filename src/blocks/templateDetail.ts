@@ -13,7 +13,7 @@ type TemplateDetailProps = {
   description: string;
   preview: string;
   meta: TemplateMeta;
-  video?: string; // ← ДОБАВИЛИ
+  video?: string;
 };
 
 // ===== Render =====
@@ -34,13 +34,10 @@ export function renderTemplateDetail(
 
     video.autoplay = true;
     video.loop = true;
-    video.muted = true;        // ОБЯЗАТЕЛЬНО для autoplay
+    video.muted = true;
     video.playsInline = true;
-
-    video.controls = false;    // как превью, не плеер
+    video.controls = false;
     video.preload = "auto";
-    video.className = "template-video";
-
 
     preview.appendChild(video);
   } else {

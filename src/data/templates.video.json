@@ -12,7 +12,8 @@
         "format": "horizontal",
         "difficulty": "medium",
         "cameraMotion": "slow_motion",
-        "sceneMotion": "camera_motion"
+        "sceneMotion": "camera_motion",
+        "sourceHint": "Обязательно заполнять"
       }
     }
   ]
