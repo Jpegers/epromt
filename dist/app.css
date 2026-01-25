@@ -543,7 +543,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
-/* если используется <img> (ПРАВИЛЬНЫЙ вариант) */
+/* <img> — фото */
 .card.preview img {
   display: block;
 
@@ -557,7 +557,21 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
 }
 
-/* если всё ещё background-image (допустимо, но хуже) */
+/* <video> — ВИДЕО (ТОЧНО КАК ФОТО) */
+.card.preview video {
+  display: block;
+
+  max-width: 512px;
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+  border-radius: 12px;
+
+  margin: 0 auto;
+}
+
+/* fallback (если где-то ещё используется bg) */
 .card.preview {
   background-position: center;
   background-repeat: no-repeat;
@@ -578,6 +592,21 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-main);
   opacity: 0.85;
 }
+
+.template-card-preview {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.template-card-preview img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
 
 
 /* -------------------------
@@ -705,6 +734,32 @@ h1, h2, h3, h4, h5, h6 {
 .contact-list a {
   color: #10b981;
   text-decoration: none;
+}
+
+/* -------------------------
+   Custom components / Validation
+------------------------- */
+
+/* Validation error message displayed in the builder when no parameters are selected */
+.validation-error {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #dc2626; /* red tone for errors */
+}
+
+/* Checkbox items inside the constructor */
+.constructor .checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.constructor .checkbox-item label {
+  font-size: 13px;
+  color: var(--text-main);
 }
 
 /* -------------------------

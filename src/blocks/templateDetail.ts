@@ -8,26 +8,49 @@ type TemplateMeta = {
   sourceHint?: string;
 };
 
-// ===== Render =====
-export function renderTemplateDetail(props: {
+type TemplateDetailProps = {
   title: string;
   description: string;
   preview: string;
   meta: TemplateMeta;
-}): HTMLElement {
+  video?: string; // ← ДОБАВИЛИ
+};
+
+// ===== Render =====
+export function renderTemplateDetail(
+  props: TemplateDetailProps
+): HTMLElement {
   const container = document.createElement("section");
   container.className = "template-detail";
 
-  // ===== Preview (FIXED) =====
+  // ===== Preview / Video =====
   const preview = document.createElement("div");
   preview.className = "card preview";
 
-  const img = document.createElement("img");
-  img.src = props.preview;
-  img.alt = props.title;
-  img.loading = "lazy";
+  if (props.video) {
+    const video = document.createElement("video");
+    video.src = props.video;
+    video.poster = props.preview;
 
-  preview.appendChild(img);
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;        // ОБЯЗАТЕЛЬНО для autoplay
+    video.playsInline = true;
+
+    video.controls = false;    // как превью, не плеер
+    video.preload = "auto";
+    video.className = "template-video";
+
+
+    preview.appendChild(video);
+  } else {
+    const img = document.createElement("img");
+    img.src = props.preview;
+    img.alt = props.title;
+    img.loading = "lazy";
+
+    preview.appendChild(img);
+  }
 
   // ===== Info =====
   const info = document.createElement("div");

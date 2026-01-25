@@ -13,7 +13,7 @@ type TemplateMeta = {
   difficulty: string;
   sourceHint?: string;
 
-  // видео-поля, на будущее (не мешают фото)
+  // видео-поля, на будущее
   cameraMotion?: string;
   sceneMotion?: string;
 };
@@ -25,17 +25,17 @@ type TemplateItem = {
   preview: string;
   promptEn: string;
   meta: TemplateMeta;
+  video?: string; // ← ВАЖНО
 };
 
-function resolvePreviewUrl(mode: "photo" | "video", item: TemplateItem): string {
-  // ✅ Основной источник истины: id → previews/<mode>/<id>.webp
+function resolvePreviewUrl(
+  mode: "photo" | "video",
+  item: TemplateItem
+): string {
   const byId = `previews/${mode}/${item.id}.webp`;
 
-  // ✅ Если в JSON вдруг уже корректный путь — можно оставить как запасной вариант
-  // (но для фото у тебя сейчас есть расхождения, поэтому byId должен быть приоритетом)
   if (mode === "photo") return byId;
 
-  // Для видео (на будущее): пробуем item.preview, иначе byId
   if (item.preview && typeof item.preview === "string") return item.preview;
   return byId;
 }
@@ -69,8 +69,16 @@ export function renderTemplate(
     return;
   }
 
-  // ✅ FIX: превью всегда резолвим по id (как в сетке), чтобы не зависеть от битых путей JSON
-  const previewUrl = resolvePreviewUrl(mode, template);
+const previewUrl = template.preview.replace(
+  "{id}",
+  template.id
+);
+
+const videoUrl =
+  mode === "video" && template.video
+    ? template.video.replace("{id}", template.id)
+    : undefined;
+
 
   // ===== Main =====
   const main = document.createElement("main");
@@ -81,8 +89,10 @@ export function renderTemplate(
     title: template.titleRu,
     description: template.descriptionRu,
     preview: previewUrl,
-    meta: template.meta
+    meta: template.meta,
+    video: videoUrl
   });
+
 
   // ===== Copy button =====
   const copyButton = createCopyButton({

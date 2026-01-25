@@ -4,7 +4,8 @@
       "id": "cinematic_start_to_end",
       "titleRu": "Кинематографичный переход между кадрами",
       "descriptionRu": "Плавный кинематографичный переход между начальным и конечным изображением с ощущением движения камеры.",
-      "preview": "/previews/video/cinematic-transition.webp",
+      "preview": "previews/video/{id}.webp",
+      "video": "videos/{id}.mp4",
       "promptEn": "cinematic transition between two frames, smooth camera movement, dramatic lighting, film look",
       "meta": {
         "input": "start_end_frame",

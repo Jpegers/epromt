@@ -1,4 +1,5 @@
 import { renderHeader } from "../blocks/header";
+import { renderAdBanner } from "../blocks/adBanner";
 
 import photoTemplates from "../data/templates.photo.json";
 import videoTemplates from "../data/templates.video.json";
@@ -40,11 +41,6 @@ export function renderTemplates(
   const main = document.createElement("main");
   main.className = "screen templates";
 
-  // --- Ad banner ---
-  const ad = document.createElement("section");
-  ad.className = "card ad";
-  ad.textContent = "Рекламный блок";
-
   // --- Grid ---
   const grid = document.createElement("section");
   grid.className = "template-grid";
@@ -84,7 +80,8 @@ export function renderTemplates(
   });
 
   // ===== Append =====
-  main.appendChild(ad);
+  // insert ad banner if enabled
+  renderAdBanner(main);
   main.appendChild(grid);
   root.appendChild(main);
 }
