@@ -10,7 +10,6 @@ type Screen =
   | { name: "contacts" }
   | { name: "privacy" };
 
-
 // ===== Screens =====
 
 import { renderInstruction } from "./screens/instruction";
@@ -54,14 +53,14 @@ function back() {
 // ===== Render =====
 
 function render() {
+  root!.className = current.name;
   root!.innerHTML = "";
 
   console.log("RENDER CURRENT:", current);
 
   switch (current.name) {
-
     case "instruction":
-      renderInstruction(root!, navigate);
+      renderInstruction();
       break;
 
     case "menu":
@@ -97,14 +96,13 @@ function render() {
     case "history":
       renderHistory(root!, navigate, back);
       break;
-
   }
 }
 
 // ===== App start =====
 
 export function startApp() {
-  const seen = localStorage.getItem("instruction_seen");
+  const seen = localStorage.getItem("onboarding_seen");
 
   current = seen
     ? { name: "menu" }
@@ -112,4 +110,3 @@ export function startApp() {
 
   render();
 }
-

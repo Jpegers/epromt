@@ -334,6 +334,151 @@
   transform: scale(0.98);
 }
 
+
+
+/* -------------------------
+   Instruction / Onboarding
+------------------------- */
+
+.instruction {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.instruction-inner {
+  flex: 1;
+  max-width: 420px;
+
+  padding: 24px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layout */
+.onboarding {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* =========================
+   Content (image + text)
+========================= */
+
+.onboarding-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  /* свайпы только по X */
+  touch-action: pan-y;
+}
+
+/* ---------- центр для экранов 1–4 ---------- */
+.onboarding-content.centered {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ---------- скролл для 5 экрана ---------- */
+.onboarding-content.scroll {
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 16px;
+  overflow-y: auto;
+}
+
+/* Картинка */
+.onboarding-image {
+  width: 90%;
+  max-width: 360px;
+  margin-bottom: 16px;
+}
+
+.onboarding-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+/* Текст */
+.onboarding-text {
+  max-width: 320px;
+  min-height: 72px;
+}
+
+.onboarding-text h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.onboarding-text p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+
+/* =========================
+   Footer
+========================= */
+
+.onboarding-footer {
+  flex-shrink: 0;
+  padding-top: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* dots */
+.onboarding-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.onboarding-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+}
+
+.onboarding-dots .dot.active {
+  background: #10b981;
+}
+
+/* buttons */
+.onboarding-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.onboarding-actions .btn {
+  flex: 1;
+}
+
+/* primary */
+.instruction .onboarding-actions .primary {
+  background: #10b981;
+  color: #fff;
+  border: none;
+}
+
+.instruction .onboarding-actions .primary:active {
+  background: #0ea371;
+}
+
+
 /* -------------------------
    Contacts / lists
 ------------------------- */
