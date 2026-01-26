@@ -59,8 +59,6 @@ body {
   -webkit-text-size-adjust: 100%;
   touch-action: manipulation;
   overscroll-behavior: none;
-
-  padding-bottom: 16px;
 }
 
 /* -------------------------
