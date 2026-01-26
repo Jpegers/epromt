@@ -9,9 +9,7 @@
 (например, ChatGPT, Gemini и другие)
 
 3. Вставь промт и добавь данные:
-- фото
-- описание сцены
-- или всё вместе
+фото, описание сцены, или все вместе
 
 4. Запусти генерацию и получи результат`,image:`${j}onboarding/05.svg`}];let w=0,A=0,H=!1;function K(){localStorage.setItem("onboarding_seen","true")}function G(){if(w<M.length-1){J("left",()=>{w++,O()});return}K(),window.location.reload()}function U(){w!==0&&J("right",()=>{w--,O()})}function ce(){K(),window.location.reload()}function J(e,t){const o=document.querySelector(".onboarding-content");if(!o){t();return}o.classList.add(e==="left"?"exit-left":"exit-right"),setTimeout(t,180)}function le(){return`
     <div class="onboarding-dots">
