@@ -1,16 +1,19 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const n of document.querySelectorAll('link[rel="modulepreload"]'))i(n);new MutationObserver(n=>{for(const a of n)if(a.type==="childList")for(const s of a.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&i(s)}).observe(document,{childList:!0,subtree:!0});function o(n){const a={};return n.integrity&&(a.integrity=n.integrity),n.referrerPolicy&&(a.referrerPolicy=n.referrerPolicy),n.crossOrigin==="use-credentials"?a.credentials="include":n.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function i(n){if(n.ep)return;n.ep=!0;const a=o(n);fetch(n.href,a)}})();const j="/epromt/",M=[{title:"Собери свой промт",text:"Собери промт для генерации изображения под свою задачу",image:`${j}onboarding/01.svg`},{title:"Задай характер видео",text:"Собери промт для генерации видео: движение, атмосфера, стиль",image:`${j}onboarding/02.svg`},{title:"Готовые решения",text:"Используй готовые шаблоны для быстрых результатов",image:`${j}onboarding/03.svg`},{title:"Оживляй изображения",text:"Берёшь картинку → добавляешь видео-характер → получаешь видео",image:`${j}onboarding/04.svg`},{title:"Как использовать E-Promt",text:`1. Собери промт или выбери шаблон
-    В конструкторе или из готовых решений
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const n of document.querySelectorAll('link[rel="modulepreload"]'))i(n);new MutationObserver(n=>{for(const a of n)if(a.type==="childList")for(const s of a.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&i(s)}).observe(document,{childList:!0,subtree:!0});function o(n){const a={};return n.integrity&&(a.integrity=n.integrity),n.referrerPolicy&&(a.referrerPolicy=n.referrerPolicy),n.crossOrigin==="use-credentials"?a.credentials="include":n.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function i(n){if(n.ep)return;n.ep=!0;const a=o(n);fetch(n.href,a)}})();const j="/epromt/",M=[{title:"Собери свой промт",text:"Создай промт для генерации изображения под свою задачу.",image:`${j}onboarding/01.svg`},{title:"Задай характер видео",text:`Определи движение, атмосферу 
+и стиль будущего видео.`,image:`${j}onboarding/02.svg`},{title:"Готовые решения",text:`Используй шаблоны для быстрого 
+ и предсказуемого результата.`,image:`${j}onboarding/03.svg`},{title:"Оживляй изображения",text:`Превращай изображения в видео 
+  с помощью готовых сценариев`,image:`${j}onboarding/04.svg`},{title:"Как использовать E-Promt",text:`1. Собери промт или выбери шаблон
+в конструкторе или из готовых решений
 
-    2. Перейди в любую AI-модель
-    Для генерации фото или видео
-    (например, ChatGPT, Gemini или другие сервисы)
+2. Открой любую AI-модель
+для генерации фото или видео
+(например, ChatGPT, Gemini и другие)
 
-    3. Вставь промт и добавь входные данные
-    — фото
-    — описание сцены
-    — или всё вместе
+3. Вставь промт и добавь данные:
+- фото
+- описание сцены
+- или всё вместе
 
-    4. Запусти генерацию и получи результат`,image:`${j}onboarding/05.svg`}];let w=0,A=0,H=!1;function K(){localStorage.setItem("onboarding_seen","true")}function G(){if(w<M.length-1){J("left",()=>{w++,O()});return}K(),window.location.reload()}function U(){w!==0&&J("right",()=>{w--,O()})}function ce(){K(),window.location.reload()}function J(e,t){const o=document.querySelector(".onboarding-content");if(!o){t();return}o.classList.add(e==="left"?"exit-left":"exit-right"),setTimeout(t,180)}function le(){return`
+4. Запусти генерацию и получи результат`,image:`${j}onboarding/05.svg`}];let w=0,A=0,H=!1;function K(){localStorage.setItem("onboarding_seen","true")}function G(){if(w<M.length-1){J("left",()=>{w++,O()});return}K(),window.location.reload()}function U(){w!==0&&J("right",()=>{w--,O()})}function ce(){K(),window.location.reload()}function J(e,t){const o=document.querySelector(".onboarding-content");if(!o){t();return}o.classList.add(e==="left"?"exit-left":"exit-right"),setTimeout(t,180)}function le(){return`
     <div class="onboarding-dots">
       ${M.map((e,t)=>`<span class="dot ${t===w?"active":""}"></span>`).join("")}
     </div>
