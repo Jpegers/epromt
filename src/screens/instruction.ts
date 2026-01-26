@@ -1,8 +1,6 @@
 import { ONBOARDING_SLIDES } from "../data/onboarding";
 
 let currentIndex = 0;
-let startX = 0;
-let isSwiping = false;
 
 function setSeen() {
   localStorage.setItem("onboarding_seen", "true");
@@ -63,7 +61,6 @@ function renderDots() {
   `;
 }
 
-
 /* ===== Entry ===== */
 
 export function renderInstruction() {
@@ -86,6 +83,10 @@ function render() {
   root.innerHTML = `
     <div class="instruction-inner">
       <div class="onboarding">
+
+        <!-- зоны клика как сторис -->
+        <div class="onboarding-tap left" id="tapLeft"></div>
+        <div class="onboarding-tap right" id="tapRight"></div>
 
         <div class="onboarding-content enter">
           <div class="onboarding-image">
@@ -126,34 +127,14 @@ function render() {
     .getElementById("rightBtn")
     ?.addEventListener("click", next);
 
-  /* ===== Swipe (после innerHTML) ===== */
+  /* ===== Story-style tap zones ===== */
 
-  const content = document.querySelector(".onboarding-content");
-  if (!content) return;
+  document.getElementById("tapLeft")?.addEventListener("click", () => {
+    if (isFirst) return;
+    back();
+  });
 
-  content.addEventListener(
-    "touchstart",
-    (e) => {
-      const touch = (e as TouchEvent).touches[0];
-      if (!touch) return;
-
-      startX = touch.clientX;
-      isSwiping = true;
-    },
-    { passive: true }
-  );
-
-  content.addEventListener("touchend", (e) => {
-    if (!isSwiping) return;
-
-    const touch = (e as TouchEvent).changedTouches[0];
-    if (!touch) return;
-
-    const diff = touch.clientX - startX;
-    isSwiping = false;
-
-    if (Math.abs(diff) < 40) return;
-
-    diff < 0 ? next() : back();
+  document.getElementById("tapRight")?.addEventListener("click", () => {
+    next();
   });
 }
