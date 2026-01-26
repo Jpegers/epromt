@@ -402,6 +402,8 @@
 
   /* анимации */
   transition: transform 220ms ease, opacity 220ms ease;
+
+  position: relative;
 }
 
 /* ---------- центр для экранов 1–4 ---------- */

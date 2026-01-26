@@ -84,11 +84,11 @@ function render() {
     <div class="instruction-inner">
       <div class="onboarding">
 
-        <!-- зоны клика как сторис -->
-        <div class="onboarding-tap left" id="tapLeft"></div>
-        <div class="onboarding-tap right" id="tapRight"></div>
-
         <div class="onboarding-content enter">
+          <!-- зоны клика как сторис (ТОЛЬКО в контенте, не в футере) -->
+          <div class="onboarding-tap left" id="tapLeft" aria-hidden="true"></div>
+          <div class="onboarding-tap right" id="tapRight" aria-hidden="true"></div>
+
           <div class="onboarding-image">
             <img src="${slide.image}" alt="${slide.title}" />
           </div>
@@ -130,7 +130,10 @@ function render() {
   /* ===== Story-style tap zones ===== */
 
   document.getElementById("tapLeft")?.addEventListener("click", () => {
-    if (isFirst) return;
+    if (isFirst) {
+      skip(); // на 1-м слева = "пропустить"
+      return;
+    }
     back();
   });
 
