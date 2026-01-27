@@ -1,5 +1,6 @@
 import { renderHeader } from "../blocks/header";
 import { renderTemplateDetail } from "../blocks/templateDetail";
+import { getMediaList } from "../data/media";
 import { createCopyButton } from "../blocks/copyButton";
 
 import photoTemplates from "../data/templates.photo.json";
@@ -25,8 +26,11 @@ type TemplateItem = {
   video?: string;
 };
 
+// The grid no longer uses this function directly. Preview resolution is
+// handled via `getMediaList` for the detail view, and `resolvePreviewUrl`
+// in `templates.ts` for the grid.
 function getPreviewUrl(mode: "photo" | "video", id: string): string {
-  return `previews/${mode}/${id}.webp`;
+  return `previews/${mode}/${id}_1.webp`;
 }
 
 export function renderTemplate(
@@ -52,22 +56,20 @@ export function renderTemplate(
     return;
   }
 
-  const previewUrl = getPreviewUrl(mode, template.id);
-
-  const videoUrl =
-    mode === "video" && template.video
-      ? template.video.replace("{id}", template.id)
-      : undefined;
+  // Gather the list of media for this template. The helper returns
+  // entries with a `poster` field for videos and no explicit type. The
+  // detail view interprets these entries based on the current mode.
+  const media = getMediaList(mode, template.id);
 
   const main = document.createElement("main");
   main.className = "screen template";
 
   const detail = renderTemplateDetail({
+    id: template.id,
     title: template.titleRu,
     description: template.descriptionRu,
-    preview: previewUrl,
     meta: template.meta,
-    video: videoUrl,
+    media,
   });
 
   const copyButton = createCopyButton({

@@ -4,7 +4,7 @@
     "id": "night_flash_street_portrait",
     "titleRu": "Ночной уличный портрет со вспышкой",
     "descriptionRu": "Реалистичный ночной портрет в уличной среде с прямой вспышкой смартфона и ощущением случайного кадра.",
-    "preview": "previews/photo/{id}.webp",
+    "preview": "previews/photo/{id}_1.webp",
     "promptEn": "use the attached face image as the exact identity reference, create a natural night-time smartphone flash portrait outdoors, candid framing, neutral facial expression, [тип одежды] in dark tones, realistic direct flash lighting, sharp focus, authentic night street atmosphere, no cinematic grading, no artificial blur",
     "meta": {
       "input": "one_photo",
@@ -17,7 +17,7 @@
     "id": "night_riverside_motion",
     "titleRu": "Ночной кадр у дороги с движением",
     "descriptionRu": "Натуральный ночной кадр рядом с дорогой, с ощущением движения и живой городской среды.",
-    "preview": "previews/photo/{id}.webp",
+    "preview": "previews/photo/{id}_1.webp",
     "promptEn": "use the attached face image as the exact identity reference, create a natural smartphone night photo near [описание локации], subject standing still while cars pass in the background, realistic motion blur on moving vehicles only, sharp subject, dark oversized outerwear, direct smartphone flash lighting, clean and authentic urban night mood",
     "meta": {
       "input": "one_photo",

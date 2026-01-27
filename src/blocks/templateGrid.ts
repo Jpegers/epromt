@@ -10,7 +10,17 @@ export function renderTemplateGrid(items: TemplateItem[]): string {
     <div class="template-grid">
       ${items
         .map((item) => {
-          const previewUrl = "/" + item.preview.replace("{id}", item.id);
+          // Normalize preview path to ensure the first media file (id_1) is used.
+          // If the preview template contains "{id}_" (e.g. "{id}_1.webp"), replace
+          // the placeholder with the actual id while preserving the suffix. Otherwise
+          // append "_1" after the id to meet the new media contract.
+          let previewTemplate = item.preview;
+          if (previewTemplate.includes("{id}_")) {
+            previewTemplate = previewTemplate.replace("{id}_", item.id + "_");
+          } else {
+            previewTemplate = previewTemplate.replace("{id}", `${item.id}_1`);
+          }
+          const previewUrl = "/" + previewTemplate;
 
           return `
             <div class="template-card">

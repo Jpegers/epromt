@@ -3,6 +3,7 @@ import { renderAdBanner } from "../blocks/adBanner";
 
 import photoTemplates from "../data/templates.photo.json";
 import videoTemplates from "../data/templates.video.json";
+import { getPreviewImage } from "../data/media";
 
 type TemplateItem = {
   id: string;
@@ -10,11 +11,18 @@ type TemplateItem = {
   descriptionRu: string;
 };
 
+/**
+ * Determine the preview URL for a template.
+ *
+ * Delegates to the central media helper to ensure a single source
+ * of truth for preview generation. Falls back to the `<id>_1.webp`
+ * naming convention when necessary.
+ */
 function resolvePreviewUrl(
   mode: "photo" | "video",
   id: string
 ): string {
-  return `previews/${mode}/${id}.webp`;
+  return getPreviewImage(mode, id);
 }
 
 export function renderTemplates(
