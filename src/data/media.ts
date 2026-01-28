@@ -1,60 +1,80 @@
 /**
  * Media helper for templates.
  *
- * This module exposes utilities to resolve media file paths for photo and
- * video templates based on a simple naming convention. Each template has
- * one or more numbered files: the first photo preview is `<id>_1.webp`, the
- * second is `<id>_2.webp`, and so on. For videos the previews follow the
- * same pattern while the actual video files live in the `videos` folder
- * using the same index and `.mp4` extension. Because the UI determines
- * whether a media item is an image or a video by context (photo vs video
- * mode), no explicit `type` field is returned – the presence of a
- * `poster` value marks video entries.
+ * The original implementation assumed media assets lived in a pair of
+ * `previews/<mode>/…` and `videos/` folders. In the new version of the
+ * application the static assets are organised under the `public/media`
+ * directory. Preview images live in `media/photo_preview` and
+ * `media/video_preview`, and the actual content files live in
+ * `media/photo_content` and `media/video_content`. Each template lists
+ * how many content entries it has via the `content` array in the JSON
+ * definitions. This module centralises all path resolution logic so that
+ * the rest of the UI does not need to be aware of the underlying folder
+ * structure.
+ *
+ * When requesting a list of media for a template the helper reads the
+ * corresponding JSON to determine how many items exist. For photo
+ * templates it returns an array of objects containing a `src` pointing
+ * to each numbered WebP image. For video templates it returns an array
+ * where each entry has a `src` pointing to the numbered MP4 file and a
+ * `poster` pointing to the single preview image for that template. The
+ * presence of the `poster` field signals to the consumer that the item
+ * should be rendered as a video.
  */
 
 export type MediaItem = {
-  /** Path to the media asset. For photos this points to the `.webp` file,
-   *  for videos it points to the `.mp4` file. */
+  /**
+   * Path to the media asset. For photos this points to the `.webp` file,
+   * for videos it points to the `.mp4` file. The path is relative to
+   * the web root (Vite copies the contents of the `public` folder to the
+   * root of the build output).
+   */
   src: string;
-  /** Optional poster image for videos. When defined the consumer should
-   *  render a video player with this poster as the preview. */
+  /**
+   * Optional poster image for videos. When defined the consumer should
+   * render a video player with this poster as the preview. For photos
+   * this field is omitted.
+   */
   poster?: string;
 };
 
-/**
- * Number of photo previews available per template. Keys correspond to the
- * template `id` and values to the highest numeric suffix present in
- * `/public/previews/photo`. These values are compiled at build time and
- * should be updated whenever new preview images are added.
- */
-const photoCounts: Record<string, number> = {
-  night_flash_street_portrait: 4,
-  night_riverside_motion: 3,
-  bathroom_flash_mirror: 2,
-  escalator_candid: 2,
-  fitting_room_mirror_selfie: 2,
-  studio_backstage_moment: 2,
-  elevator_flash_portrait: 2,
-  daylight_sidewalk_candid: 2,
-  car_backseat_selfie: 2,
-};
+import photoTemplates from "./templates.photo.json";
+import videoTemplates from "./templates.video.json";
 
 /**
- * Number of video clips available per template. Keys correspond to the
- * template `id` and values to the highest numeric suffix present in
- * `/public/videos`. These values are compiled at build time and should
- * be updated whenever new clips are added.
+ * Compute a lookup of content counts for photo and video templates.
+ *
+ * The JSON files for templates declare a `content` array when multiple
+ * media items are available. If the `content` field is missing the
+ * template is assumed to have a single media file.
  */
-const videoCounts: Record<string, number> = {
-  cinematic_start_to_end: 2,
-};
+const photoCounts: Record<string, number> = {};
+const videoCounts: Record<string, number> = {};
+
+// Populate counts from the imported template definitions.
+for (const item of (photoTemplates.items as any[])) {
+  if (Array.isArray(item.content) && item.content.length > 0) {
+    photoCounts[item.id] = item.content.length;
+  } else {
+    photoCounts[item.id] = 1;
+  }
+}
+for (const item of (videoTemplates.items as any[])) {
+  if (Array.isArray(item.content) && item.content.length > 0) {
+    videoCounts[item.id] = item.content.length;
+  } else {
+    videoCounts[item.id] = 1;
+  }
+}
 
 /**
- * Resolve the list of media entries for a given template. When in
- * `photo` mode each entry represents an image; for `video` mode each
- * entry represents a video clip with its poster. The consumer should
- * determine how to render each entry based on the presence of the
- * `poster` property. If no media is found an empty array is returned.
+ * Resolve the list of media entries for a given template.
+ *
+ * For photos this returns one entry per image located in
+ * `media/photo_content/{id}_{n}.webp` where `n` starts at 1. For
+ * videos this returns one entry per clip located in
+ * `media/video_content/{id}_{n}.mp4` with a shared poster from
+ * `media/video_preview/{id}.webp`.
  *
  * @param mode Either `photo` or `video` depending on the template type.
  * @param id   The template identifier as declared in the JSON data.
@@ -69,18 +89,19 @@ export function getMediaList(
     const items: MediaItem[] = [];
     for (let i = 1; i <= count; i++) {
       items.push({
-        src: `previews/photo/${id}_${i}.webp`,
+        src: `media/photo_content/${id}_${i}.webp`,
       });
     }
     return items;
   } else {
     const count = videoCounts[id];
     if (!count) return [];
+    const poster = `media/video_preview/${id}.webp`;
     const items: MediaItem[] = [];
     for (let i = 1; i <= count; i++) {
       items.push({
-        src: `videos/${id}_${i}.mp4`,
-        poster: `previews/video/${id}_${i}.webp`,
+        src: `media/video_content/${id}_${i}.mp4`,
+        poster,
       });
     }
     return items;
@@ -90,25 +111,19 @@ export function getMediaList(
 /**
  * Returns the URL for the preview image of a template.
  *
- * The contract dictates that preview images are stored in the
- * `previews/<mode>/<id>_<index>.webp` directory, where `<index>`
- * starts at 1. This helper returns the preview URL for the first
- * media item of a template. It falls back to the conventional
- * `<id>_1.webp` path when no media items are defined for the given
- * template. This encapsulation ensures a single point of truth for
- * preview generation across the project.
+ * Photo templates use a single preview stored in
+ * `media/photo_preview/{id}.webp`, and video templates use
+ * `media/video_preview/{id}.webp`. If no media is defined for the
+ * template this helper falls back to these conventional paths. This
+ * encapsulates the logic for preview generation across the project.
  */
 export function getPreviewImage(
   mode: "photo" | "video",
   id: string
 ): string {
-  const list = getMediaList(mode, id);
-  if (list.length > 0) {
-    const item: any = list[0];
-    // For video items the preview is stored on the `poster` property.
-    // For photo items the preview is stored on the `src` property.
-    return item.poster ?? item.src;
+  if (mode === "photo") {
+    return `media/photo_preview/${id}.webp`;
+  } else {
+    return `media/video_preview/${id}.webp`;
   }
-  // Fallback to the first media filename if nothing else is defined.
-  return `previews/${mode}/${id}_1.webp`;
 }

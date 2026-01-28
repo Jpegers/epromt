@@ -1,0 +1,34 @@
+/* -------------------------
+   Custom components / Validation
+------------------------- */
+
+/* Validation error message displayed in the builder when no parameters are selected */
+/* Center validation error above copy button */
+/* VALIDATION (ОТКЛЮЧЕНО) 
+    // Ранее использовалось для показа ошибки,
+    // если не выбран ни один параметр.
+    // Сейчас UX решается через disabled-кнопку,
+    // поэтому validation-текст не нужен.*/
+/*
+.validation-error {
+  margin: 8px 0 12px;
+  text-align: center;
+  color: #e54848;
+  font-size: 13px;
+}
+*/
+
+
+/* Checkbox items inside the constructor */
+.constructor .checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.constructor .checkbox-item label {
+  font-size: 13px;
+  color: var(--text-main);
+}
