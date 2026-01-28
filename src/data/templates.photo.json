@@ -2,7 +2,7 @@
   "items": [
     {
       "id": "night_flash_street_portrait",
-      "content": [1, 2],
+      "content": [1, 2, 3, 4, 5],
       "titleRu": "Ночной уличный портрет со вспышкой",
       "descriptionRu": "Реалистичный ночной портрет в уличной среде с прямой вспышкой смартфона и ощущением случайного кадра.",
       "promptEn": "use the attached face image as the exact identity reference, create a natural night-time smartphone flash portrait outdoors, candid framing, neutral facial expression, [тип одежды] in dark tones, realistic direct flash lighting, sharp focus, authentic night street atmosphere, no cinematic grading, no artificial blur",
@@ -15,7 +15,7 @@
     },
     {
       "id": "night_riverside_motion",
-      "content": [1, 2],
+      "content": [1],
       "titleRu": "Ночной кадр у дороги с движением",
       "descriptionRu": "Натуральный ночной кадр рядом с дорогой, с ощущением движения и живой городской среды.",
       "promptEn": "use the attached face image as the exact identity reference, create a natural smartphone night photo near [описание локации], subject standing still while cars pass in the background, realistic motion blur on moving vehicles only, sharp subject, dark oversized outerwear, direct smartphone flash lighting, clean and authentic urban night mood",
@@ -28,7 +28,7 @@
     },
     {
       "id": "fitting_room_mirror_selfie",
-      "content": [1],
+      "content": [1, 2, 3],
       "titleRu": "Зеркальное селфи в примерочной",
       "descriptionRu": "Минималистичное зеркальное селфи в примерочной с акцентом на образ и повседневную моду.",
       "promptEn": "use the attached face image as the exact identity reference, create a smartphone mirror selfie in a fitting room, clean interior, neutral lighting, wearing [тип одежды] in black tones, casual accessories, natural posture, unfiltered realistic look, no background blur",

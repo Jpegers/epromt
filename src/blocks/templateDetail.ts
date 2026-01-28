@@ -77,70 +77,42 @@ export function renderTemplateDetail(
   };
 
   const createVideoSlide = (
-    src: string,
-    poster?: string
-  ): HTMLElement => {
-    const slide = document.createElement("div");
-    slide.className = "media-slide";
+      src: string,
+      poster?: string
+    ): HTMLElement => {
+      const slide = document.createElement("div");
+      slide.className = "media-slide";
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "media-wrapper";
+      const wrapper = document.createElement("div");
+      wrapper.className = "media-wrapper";
 
-    const loader = document.createElement("div");
-    loader.className = "img-loader";
-    wrapper.appendChild(loader);
+      const loader = document.createElement("div");
+      loader.className = "img-loader";
+      wrapper.appendChild(loader);
 
-    const video = document.createElement("video");
-    video.src = src;
-    if (poster) video.poster = poster;
-    video.preload = "none";
-    video.controls = false;
-    video.muted = true;
-    video.playsInline = true;
-    video.style.width = "100%";
-    video.style.height = "100%";
-    video.style.objectFit = "contain";
-    video.style.borderRadius = "12px";
+      const video = document.createElement("video");
+      video.src = src;
+      if (poster) video.poster = poster;
 
-    const onLoaded = () => {
-      loader.remove();
-      video.removeEventListener("loadeddata", onLoaded);
-      video.removeEventListener("canplay", onLoaded);
+      video.preload = "metadata"; // ❗ важно
+      video.muted = true;
+      video.playsInline = true;
+      video.controls = false;
+
+      video.addEventListener("loadeddata", () => {
+        loader.remove();
+      });
+
+      video.addEventListener("error", () => {
+        loader.remove();
+      });
+
+      wrapper.appendChild(video);
+
+      slide.appendChild(wrapper);
+      return slide;
     };
 
-    video.addEventListener("loadeddata", onLoaded);
-    video.addEventListener("canplay", onLoaded);
-
-    wrapper.appendChild(video);
-
-    const playBtn = document.createElement("button");
-    playBtn.className = "play-btn";
-    playBtn.textContent = "▶";
-
-    playBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (video.paused) {
-        pauseAllVideos();
-        video.play();
-      } else {
-        video.pause();
-      }
-    });
-
-    video.addEventListener("play", () => {
-      playBtn.classList.add("small");
-      playBtn.textContent = "⏸";
-    });
-
-    video.addEventListener("pause", () => {
-      playBtn.classList.remove("small");
-      playBtn.textContent = "▶";
-    });
-
-    wrapper.appendChild(playBtn);
-    slide.appendChild(wrapper);
-    return slide;
-  };
 
   if (!props.media || props.media.length === 0) {
     mediaContainer.appendChild(createImageSlide(""));

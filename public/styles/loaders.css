@@ -1,0 +1,46 @@
+/* =========================================================
+   GLOBAL LOGO LOADER
+   Used for media, app loading, onboarding
+========================================================= */
+
+.logo-loader {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+  background: transparent;
+}
+
+.logo-loader::before {
+  content: "";
+  width: 96px;
+  height: 96px;
+
+  background: url("./public/onboarding/logo.svg") center / contain no-repeat;
+
+  opacity: 0.35;
+  animation: logo-pulse 1.6s ease-in-out infinite;
+}
+
+/* -------------------------
+   Pulse animation
+------------------------- */
+
+@keyframes logo-pulse {
+  0% {
+    opacity: 0.25;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.25;
+    transform: scale(0.96);
+  }
+}
