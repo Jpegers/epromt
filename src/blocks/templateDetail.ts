@@ -39,14 +39,18 @@ export function renderTemplateDetail(
   const aspect =
     ratioMap[props.meta.format as keyof typeof ratioMap] || "1 / 1";
 
-  (mediaContainer.style as any).aspectRatio = aspect;
-
   const pauseAllVideos = () => {
-    mediaContainer.querySelectorAll("video").forEach((v) => {
-      const video = v as HTMLVideoElement;
-      if (!video.paused) video.pause();
-    });
-  };
+  mediaContainer.querySelectorAll("video").forEach((v) => {
+    const video = v as HTMLVideoElement;
+    video.pause();
+    video.currentTime = 0;
+
+    const btn = video.parentElement?.querySelector(".play-btn") as HTMLElement;
+    if (btn) btn.style.display = "";
+  });
+};
+
+
 
   const createImageSlide = (src: string): HTMLElement => {
     const slide = document.createElement("div");
@@ -93,6 +97,7 @@ export function renderTemplateDetail(
       const video = document.createElement("video");
       video.src = src;
       if (poster) video.poster = poster;
+      let isPlaying = false;
 
       video.preload = "metadata"; // ❗ важно
       video.muted = true;
@@ -107,7 +112,40 @@ export function renderTemplateDetail(
         loader.remove();
       });
 
+      const playBtn = document.createElement("button");
+      playBtn.className = "play-btn";
+      playBtn.textContent = "▶";
+
+      playBtn.addEventListener("click", () => {
+        const pauseAllVideos = () => {
+        mediaContainer.querySelectorAll("video").forEach((v) => {
+          const video = v as HTMLVideoElement;
+          video.pause();
+          video.currentTime = 0;
+
+          const btn = video.parentElement?.querySelector(".play-btn") as HTMLElement;
+          if (btn) btn.style.display = "";
+        });
+
+      video.addEventListener("click", () => {
+        if (!video.paused) {
+          video.pause();
+          playBtn.style.display = "";
+        }
+      });
+    };
+
+        video.play().catch(() => {});
+        playBtn.style.display = "none";
+      });
+
+      video.addEventListener("pause", () => {
+        playBtn.style.display = "";
+      });
+
       wrapper.appendChild(video);
+      wrapper.appendChild(playBtn);
+
 
       slide.appendChild(wrapper);
       return slide;
@@ -135,7 +173,28 @@ export function renderTemplateDetail(
     });
 
     carousel.addEventListener("scroll", pauseAllVideos);
-    mediaContainer.appendChild(carousel);
+    const dots = document.createElement("div");
+dots.className = "media-dots";
+const slidesCount = props.media.length;
+for (let i = 0; i < slidesCount; i++) {
+  const d = document.createElement("span");
+  d.className = "dot" + (i === 0 ? " active" : "");
+  d.addEventListener("click", () => {
+    pauseAllVideos();
+    carousel.scrollTo({ left: carousel.clientWidth * i, behavior: "smooth" });
+  });
+  dots.appendChild(d);
+}
+carousel.addEventListener("scroll", () => {
+  const idx = Math.round(carousel.scrollLeft / carousel.clientWidth);
+  Array.from(dots.children).forEach((el, i) =>
+    el.classList.toggle("active", i === idx)
+  );
+  pauseAllVideos();
+});
+mediaContainer.appendChild(carousel);
+mediaContainer.appendChild(dots);
+
   }
 
   const content = document.createElement("div");

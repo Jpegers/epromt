@@ -160,7 +160,6 @@
   max-height: 70vh;
   display: flex;
   justify-content: center;
-  aspect-ratio: auto !important;
   max-width: 520px;          /* safety для десктопа */
   margin: 0 auto;
   position: relative;
@@ -228,18 +227,28 @@
   100% { background-position: -100% 0; }
 }
 
+.media-wrapper {
+  position: relative;
+}
+
 .play-btn {
   position: absolute;
-  inset: auto 50% 12px auto;
-  transform: translateX(50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   width: 48px;
   height: 48px;
+
   border-radius: 50%;
   border: none;
+
   background: rgba(0, 0, 0, 0.6);
   color: #fff;
   font-size: 18px;
+
   cursor: pointer;
+  z-index: 3;
 }
 
 .play-btn.small {
@@ -247,6 +256,7 @@
   height: 36px;
   font-size: 14px;
 }
+
 
 /* =========================================================
    TEMPLATE DETAIL / CONTENT
@@ -323,4 +333,60 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+
+/* ================================
+   MEDIA BULLETS (SAFE OVERRIDE)
+   add to end of file
+================================ */
+
+/* контейнер буллитов */
+.media-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  /* визуально размещаем на фото,
+     не влияя на layout */
+  margin-top: -22px;
+  margin-bottom: 8px;
+
+  pointer-events: auto;
+}
+
+/* обычный буллит */
+.media-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* активный */
+.media-dots .dot.active {
+  background: #10b981;
+}
+/* ================================
+   MEDIA DOTS — MOVE TO BOTTOM
+================================ */
+
+/* делаем media колонкой */
+.template-media {
+  display: flex;
+  flex-direction: column;
+}
+
+/* карусель занимает всё доступное место */
+.media-carousel {
+  flex: 1 1 auto;
+}
+
+/* буллиты прижимаем вниз */
+.media-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
 }

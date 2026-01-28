@@ -101,12 +101,37 @@ function render() {
 
 // ===== App start =====
 
-export function startApp() {
+async function preloadOnboarding() {
+  try {
+    const mod = await import("./data/onboarding");
+    const slides = mod.ONBOARDING_SLIDES || [];
+    await Promise.all(slides.map(s => new Promise(res => {
+      const img = new Image();
+      img.onload = img.onerror = () => res(true);
+      img.src = s.image;
+    })));
+  } catch {}
+}
+
+function showGlobalLoader() {
+  const el = document.createElement("div");
+  el.className = "logo-loader";
+  el.id = "global-loader";
+  document.body.appendChild(el);
+}
+
+function hideGlobalLoader() {
+  document.getElementById("global-loader")?.remove();
+}
+
+export async function startApp() {
+  showGlobalLoader();
+  await preloadOnboarding();
+  hideGlobalLoader();
+
   const seen = localStorage.getItem("onboarding_seen");
 
-  current = seen
-    ? { name: "menu" }
-    : { name: "instruction" };
+  current = seen ? { name: "menu" } : { name: "instruction" };
 
   render();
 }
