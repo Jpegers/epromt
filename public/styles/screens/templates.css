@@ -18,7 +18,7 @@
 ------------------------- */
 
 .template-detail .template-description {
-  margin-top: 10px;
+  margin-top: 0;
 
   font-size: 15px;
   line-height: 1.55;
@@ -280,7 +280,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--text-secondary);
 }
 
@@ -389,4 +389,92 @@
   gap: 8px;
   position: relative;
   z-index: 2;
+}
+
+/* ================================
+   HIDE MEDIA SCROLLBAR
+================================ */
+
+.media-carousel {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge */
+}
+
+.media-carousel::-webkit-scrollbar {
+  display: none;                /* Chrome / Safari */
+}
+
+/* ===============================
+   MEDIA ARROWS (DESKTOP ONLY)
+=============================== */
+
+.template-media {
+  position: relative;
+}
+
+.media-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.media-arrow.left {
+  left: 8px;
+}
+
+.media-arrow.right {
+  right: 8px;
+}
+
+/* скрываем стрелки на таче */
+@media (pointer: coarse) {
+  .media-arrow {
+    display: none;
+  }
+}
+
+/* ===============================
+   iOS: anti double-tap zoom
+=============================== */
+
+.media-carousel {
+  touch-action: pan-x;
+}
+
+.media-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  z-index: 3;
+}
+
+.media-arrow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: translate(-70%, -50%) rotate(-45deg);
+}
+
+.media-arrow.left::before {
+  transform: translate(-30%, -50%) rotate(135deg);
 }

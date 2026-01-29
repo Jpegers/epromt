@@ -29,28 +29,20 @@ export function renderTemplateDetail(
   const mediaContainer = document.createElement("div");
   mediaContainer.className = "template-media";
 
-  const ratioMap: Record<string, string> = {
-    vertical: "3 / 4",
-    horizontal: "16 / 9",
-    square: "1 / 1",
-    any: "1 / 1",
-  };
-
-  const aspect =
-    ratioMap[props.meta.format as keyof typeof ratioMap] || "1 / 1";
+  /* ---------- helpers ---------- */
 
   const pauseAllVideos = () => {
-  mediaContainer.querySelectorAll("video").forEach((v) => {
-    const video = v as HTMLVideoElement;
-    video.pause();
-    video.currentTime = 0;
+    mediaContainer.querySelectorAll("video").forEach((v) => {
+      const video = v as HTMLVideoElement;
+      video.pause();
+      video.currentTime = 0;
 
-    const btn = video.parentElement?.querySelector(".play-btn") as HTMLElement;
-    if (btn) btn.style.display = "";
-  });
-};
-
-
+      const btn = video.parentElement?.querySelector(
+        ".play-btn"
+      ) as HTMLElement | null;
+      if (btn) btn.style.display = "";
+    });
+  };
 
   const createImageSlide = (src: string): HTMLElement => {
     const slide = document.createElement("div");
@@ -67,10 +59,6 @@ export function renderTemplateDetail(
     img.src = src;
     img.alt = props.title;
     img.loading = "lazy";
-    img.style.width = "100%";
-    img.style.height = "100%";
-    img.style.objectFit = "contain";
-    img.style.borderRadius = "12px";
 
     img.addEventListener("load", () => loader.remove());
     img.addEventListener("error", () => loader.remove());
@@ -80,77 +68,52 @@ export function renderTemplateDetail(
     return slide;
   };
 
-  const createVideoSlide = (
-      src: string,
-      poster?: string
-    ): HTMLElement => {
-      const slide = document.createElement("div");
-      slide.className = "media-slide";
+  const createVideoSlide = (src: string, poster?: string): HTMLElement => {
+    const slide = document.createElement("div");
+    slide.className = "media-slide";
 
-      const wrapper = document.createElement("div");
-      wrapper.className = "media-wrapper";
+    const wrapper = document.createElement("div");
+    wrapper.className = "media-wrapper";
 
-      const loader = document.createElement("div");
-      loader.className = "img-loader";
-      wrapper.appendChild(loader);
+    const loader = document.createElement("div");
+    loader.className = "img-loader";
+    wrapper.appendChild(loader);
 
-      const video = document.createElement("video");
-      video.src = src;
-      if (poster) video.poster = poster;
-      let isPlaying = false;
+    const video = document.createElement("video");
+    video.src = src;
+    if (poster) video.poster = poster;
+    video.preload = "metadata";
+    video.muted = true;
+    video.playsInline = true;
+    video.controls = false;
 
-      video.preload = "metadata"; // ❗ важно
-      video.muted = true;
-      video.playsInline = true;
-      video.controls = false;
+    video.addEventListener("loadeddata", () => loader.remove());
+    video.addEventListener("error", () => loader.remove());
 
-      video.addEventListener("loadeddata", () => {
-        loader.remove();
-      });
+    const playBtn = document.createElement("button");
+    playBtn.className = "play-btn";
+    playBtn.textContent = "▶";
 
-      video.addEventListener("error", () => {
-        loader.remove();
-      });
+    playBtn.addEventListener("click", () => {
+      pauseAllVideos();
+      video.play().catch(() => {});
+      playBtn.style.display = "none";
+    });
 
-      const playBtn = document.createElement("button");
-      playBtn.className = "play-btn";
-      playBtn.textContent = "▶";
-
-      playBtn.addEventListener("click", () => {
-        const pauseAllVideos = () => {
-        mediaContainer.querySelectorAll("video").forEach((v) => {
-          const video = v as HTMLVideoElement;
-          video.pause();
-          video.currentTime = 0;
-
-          const btn = video.parentElement?.querySelector(".play-btn") as HTMLElement;
-          if (btn) btn.style.display = "";
-        });
-
-      video.addEventListener("click", () => {
-        if (!video.paused) {
-          video.pause();
-          playBtn.style.display = "";
-        }
-      });
-    };
-
-        video.play().catch(() => {});
-        playBtn.style.display = "none";
-      });
-
-      video.addEventListener("pause", () => {
+    video.addEventListener("click", () => {
+      if (!video.paused) {
+        video.pause();
         playBtn.style.display = "";
-      });
+      }
+    });
 
-      wrapper.appendChild(video);
-      wrapper.appendChild(playBtn);
+    wrapper.appendChild(video);
+    wrapper.appendChild(playBtn);
+    slide.appendChild(wrapper);
+    return slide;
+  };
 
-
-      slide.appendChild(wrapper);
-      return slide;
-    };
-
+  /* ---------- media ---------- */
 
   if (!props.media || props.media.length === 0) {
     mediaContainer.appendChild(createImageSlide(""));
@@ -173,29 +136,56 @@ export function renderTemplateDetail(
     });
 
     carousel.addEventListener("scroll", pauseAllVideos);
-    const dots = document.createElement("div");
-dots.className = "media-dots";
-const slidesCount = props.media.length;
-for (let i = 0; i < slidesCount; i++) {
-  const d = document.createElement("span");
-  d.className = "dot" + (i === 0 ? " active" : "");
-  d.addEventListener("click", () => {
-    pauseAllVideos();
-    carousel.scrollTo({ left: carousel.clientWidth * i, behavior: "smooth" });
-  });
-  dots.appendChild(d);
-}
-carousel.addEventListener("scroll", () => {
-  const idx = Math.round(carousel.scrollLeft / carousel.clientWidth);
-  Array.from(dots.children).forEach((el, i) =>
-    el.classList.toggle("active", i === idx)
-  );
-  pauseAllVideos();
-});
-mediaContainer.appendChild(carousel);
-mediaContainer.appendChild(dots);
 
+    /* стрелки (десктоп) */
+    const prev = document.createElement("button");
+    prev.className = "media-arrow left";
+
+    const next = document.createElement("button");
+    next.className = "media-arrow right";
+
+    const scrollBySlide = (dir: number) => {
+      pauseAllVideos();
+      carousel.scrollBy({
+        left: carousel.clientWidth * dir,
+        behavior: "smooth",
+      });
+    };
+
+    prev.addEventListener("click", () => scrollBySlide(-1));
+    next.addEventListener("click", () => scrollBySlide(1));
+
+    /* буллиты */
+    const dots = document.createElement("div");
+    dots.className = "media-dots";
+
+    for (let i = 0; i < props.media.length; i++) {
+      const d = document.createElement("span");
+      d.className = "dot" + (i === 0 ? " active" : "");
+      d.addEventListener("click", () => {
+        pauseAllVideos();
+        carousel.scrollTo({
+          left: carousel.clientWidth * i,
+          behavior: "smooth",
+        });
+      });
+      dots.appendChild(d);
+    }
+
+    carousel.addEventListener("scroll", () => {
+      const idx = Math.round(carousel.scrollLeft / carousel.clientWidth);
+      Array.from(dots.children).forEach((el, i) =>
+        el.classList.toggle("active", i === idx)
+      );
+    });
+
+    mediaContainer.appendChild(carousel);
+    mediaContainer.appendChild(prev);
+    mediaContainer.appendChild(next);
+    mediaContainer.appendChild(dots);
   }
+
+  /* ---------- content ---------- */
 
   const content = document.createElement("div");
   content.className = "template-content";
